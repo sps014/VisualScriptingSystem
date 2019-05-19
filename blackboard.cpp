@@ -1,0 +1,166 @@
+#include "blackboard.h"
+
+BlackBoard::BlackBoard()
+{
+    setAcceptedMouseButtons(Qt::AllButtons);
+}
+void BlackBoard::setBackgroundColor(const QColor color)
+{
+    if(m_backgroundColor==color)
+        return;
+    else
+    {
+        m_backgroundColor=color;
+        emit onBackgroundColorChanged(m_backgroundColor);
+        this->update();
+    }
+}
+void BlackBoard::setDimensionSquare(const int a)
+{
+    if(m_squareDimension==a)
+        return;
+    else
+    {
+        m_squareDimension=a;
+        emit onSquareDimensionChanged(m_squareDimension);
+        this->update();
+    }
+}
+
+void BlackBoard::setSquareNumber(const int a)
+{
+    if(m_squareNumber==a)
+        return;
+    else
+    {
+        m_squareNumber=a;
+        emit onSquareDimensionChanged(m_squareNumber);
+        this->update();
+    }
+}
+
+void BlackBoard::setOffsetX(const int x)
+{
+    if(m_offsetX==x)
+        return;
+    else
+    {
+        m_offsetX=x;
+        if(m_offsetX>BigBlock())
+        {
+            m_offsetX=m_offsetX%BigBlock();
+        }
+        if (m_offsetX <0)
+        {
+             m_offsetX =BigBlock()-abs(m_offsetX)%BigBlock();
+        }
+
+        this->update();
+    }
+}
+
+void BlackBoard::setOffsetY(const int y)
+{
+    if(m_offsetY==y)
+        return;
+    else
+    {
+        m_offsetY=y;
+        if(m_offsetY>BigBlock())
+        {
+            m_offsetY=m_offsetY%BigBlock();
+        }
+        if (m_offsetY <0)
+        {
+             m_offsetY =BigBlock()-abs(m_offsetY)%BigBlock();
+        }
+
+        this->update();
+    }
+}
+
+QColor BlackBoard::backgroundColor() const
+{
+    return m_backgroundColor;
+}
+int BlackBoard::squareDimension() const
+{
+    return  m_squareDimension;
+}
+int BlackBoard::squareNumber() const
+{
+    return  m_squareNumber;
+}
+
+int BlackBoard::offsetX() const
+{
+    return  m_offsetX;
+}
+int BlackBoard::offsetY() const
+{
+    return m_offsetY;
+}
+
+void BlackBoard::paint(QPainter *painter)
+{
+      painter->setRenderHints(QPainter::Antialiasing,true);
+      painter->setPen(Qt::black);
+      DrawGridLines(painter);
+
+}
+void BlackBoard::DrawGridLines(QPainter *painter)
+{
+    int Width=static_cast<int>(this->width());
+    int Height=static_cast<int>(this->height());
+
+    painter->fillRect(0,0,Width,Height,QBrush(QColor(50,50,50)));
+
+    int vertLines=Width/m_squareDimension+1;
+    int horizLines=Height/m_squareDimension+1;
+
+    painter->drawRect(0,0,Width,Height);
+
+    for(int i=-m_squareDimension;i<vertLines;i++)
+    {
+        if(i%m_squareNumber==0)
+            painter->setPen(QPen(QColor(28,28,28),2.5));
+        else
+            painter->setPen(QPen(QColor(38,38,38),1));
+
+        painter->drawLine(i*m_squareDimension+m_offsetX,0,i*m_squareDimension+m_offsetX,Height);
+    }
+    for(int i=-m_squareDimension;i<horizLines;i++)
+    {
+        if(i%m_squareNumber==0)
+            painter->setPen(QPen(QColor(28,28,28),2.5));
+        else
+            painter->setPen(QPen(QColor(38,38,38),1));
+        painter->drawLine(0,i*m_squareDimension+m_offsetY,Width,i*m_squareDimension+m_offsetY);
+    }
+}
+int BlackBoard::BigBlock() const
+{
+    return m_squareNumber*m_squareDimension;
+}
+
+void BlackBoard::mousePressEvent(QMouseEvent *event)
+{
+    m_isMouseDown=true;
+    m_mouseDownPosition=event->pos();
+}
+void BlackBoard::mouseReleaseEvent(QMouseEvent *event)
+{
+   m_isMouseDown=false;
+   m_mouseDownPosition=QPoint(0,0);
+}
+void BlackBoard::mouseMoveEvent(QMouseEvent *event)
+{
+    if(m_isMouseDown)
+    {
+        QPoint p=event->pos()-m_mouseDownPosition;
+        m_mouseDownPosition=event->pos();
+        setOffsetX(m_offsetX+p.x());
+        setOffsetY(m_offsetY+p.y());
+
+    }
+}
