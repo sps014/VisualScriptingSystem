@@ -15,6 +15,26 @@ void BlackBoard::setBackgroundColor(const QColor color)
         this->update();
     }
 }
+void BlackBoard::setLargeLineColor(const QColor color)
+{
+    if(m_largeLineColor==color)
+        return;
+    else
+    {
+        m_largeLineColor=color;
+        this->update();
+    }
+}
+void BlackBoard::setSmallLineColor(const QColor color)
+{
+    if(m_smallLineColor==color)
+        return;
+    else
+    {
+        m_smallLineColor=color;
+        this->update();
+    }
+}
 void BlackBoard::setDimensionSquare(const int a)
 {
     if(m_squareDimension==a)
@@ -22,6 +42,7 @@ void BlackBoard::setDimensionSquare(const int a)
     else
     {
         m_squareDimension=a;
+        m_lock_squareDimension=a;
         emit onSquareDimensionChanged(m_squareDimension);
         this->update();
     }
@@ -83,6 +104,14 @@ QColor BlackBoard::backgroundColor() const
 {
     return m_backgroundColor;
 }
+QColor BlackBoard::smallLineColor() const
+{
+    return  m_smallLineColor;
+}
+QColor BlackBoard::largeLineColor() const
+{
+    return  m_largeLineColor;
+}
 int BlackBoard::squareDimension() const
 {
     return  m_squareDimension;
@@ -113,7 +142,7 @@ void BlackBoard::DrawGridLines(QPainter *painter)
     int Width=static_cast<int>(this->width());
     int Height=static_cast<int>(this->height());
 
-    painter->fillRect(0,0,Width,Height,QBrush(QColor(50,50,50)));
+    painter->fillRect(0,0,Width,Height,QBrush(m_backgroundColor));
 
     int vertLines=Width/m_squareDimension+1;
     int horizLines=Height/m_squareDimension+1;
@@ -123,18 +152,18 @@ void BlackBoard::DrawGridLines(QPainter *painter)
     for(int i=-m_squareDimension;i<vertLines;i++)
     {
         if(i%m_squareNumber==0)
-            painter->setPen(QPen(QColor(28,28,28),2.5));
+            painter->setPen(QPen(m_largeLineColor,2.5));
         else
-            painter->setPen(QPen(QColor(38,38,38),1));
+            painter->setPen(QPen(m_smallLineColor,1));
 
         painter->drawLine(i*m_squareDimension+m_offsetX,0,i*m_squareDimension+m_offsetX,Height);
     }
     for(int i=-m_squareDimension;i<horizLines;i++)
     {
         if(i%m_squareNumber==0)
-            painter->setPen(QPen(QColor(28,28,28),2.5));
+            painter->setPen(QPen(m_largeLineColor,2.5));
         else
-            painter->setPen(QPen(QColor(38,38,38),1));
+            painter->setPen(QPen(m_smallLineColor,1));
         painter->drawLine(0,i*m_squareDimension+m_offsetY,Width,i*m_squareDimension+m_offsetY);
     }
 }
@@ -147,8 +176,9 @@ void BlackBoard::mousePressEvent(QMouseEvent *event)
 {
     m_isMouseDown=true;
     m_mouseDownPosition=event->pos();
+    this->setFocus(true);
 }
-void BlackBoard::mouseReleaseEvent(QMouseEvent *event)
+void BlackBoard::mouseReleaseEvent(QMouseEvent*)
 {
    m_isMouseDown=false;
    m_mouseDownPosition=QPoint(0,0);
@@ -164,3 +194,47 @@ void BlackBoard::mouseMoveEvent(QMouseEvent *event)
 
     }
 }
+void BlackBoard::wheelEvent(QWheelEvent *event)
+{
+    ZoomAmountModifier(event->delta());
+}
+
+void BlackBoard::ZoomAmountModifier(int amt)
+{
+    if(amt>0)
+    {
+        if(curZoom+0.05f<MaxZoom)
+            curZoom+=0.05f;
+    }
+    else
+    {
+        if(curZoom-0.05f>MinZoom)
+            curZoom-=0.05f;
+    }
+    zoom(curZoom);
+}
+
+void BlackBoard::zoom(float amount)
+{
+
+    m_squareDimension = static_cast<int>(amount * m_lock_squareDimension);
+    update();
+}
+
+void BlackBoard::keyPressEvent(QKeyEvent *e)
+{
+    if( e->modifiers().testFlag(Qt::ControlModifier))
+    {
+        if(e->key()==Qt::Key::Key_Plus)
+        {
+                ZoomAmountModifier(1);
+
+        }
+        else if(e->key()==Qt::Key::Key_Minus)
+        {
+            ZoomAmountModifier(-1);
+
+        }
+    }
+}
+

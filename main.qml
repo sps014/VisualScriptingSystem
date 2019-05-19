@@ -13,13 +13,34 @@ Window {
     Board
     {
         id:board
-        backgroundColor:"green"
         squareDimension: 25
         squareNumber: 5
         offsetX: 146
         offsetY: 125
         height: win.height
         width: win.width
+
+    }
+
+    Slider {
+        id: slider
+        x: 176
+        y: 387
+        to: 1.5
+        from: 0.5
+        value: 1
+
+        onValueChanged: board.zoom(slider.value)
+    }
+
+    Slider {
+        id: slider1
+        x: 415
+        y: 393
+        from: 25
+        to: 100
+        value: 25
+        onValueChanged: board.squareDimension=slider1.value
     }
 }
 
