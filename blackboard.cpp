@@ -191,7 +191,20 @@ void BlackBoard::mouseMoveEvent(QMouseEvent *event)
         m_mouseDownPosition=event->pos();
         setOffsetX(m_offsetX+p.x());
         setOffsetY(m_offsetY+p.y());
-
+        MoveNodes(p);
+    }
+}
+void BlackBoard::MoveNodes(QPoint q)
+{
+    QObject* cur=static_cast<QObject*>(this);
+    QObjectList allc=cur->children();
+    for(int i=0;i<allc.length();i++)
+    {
+        QQuickItem* c=dynamic_cast<QQuickItem*>(allc[i]);
+        if(c!=nullptr)
+        {
+             c->setPosition(c->position()+q);
+        }
     }
 }
 void BlackBoard::wheelEvent(QWheelEvent *event)
@@ -218,7 +231,21 @@ void BlackBoard::zoom(float amount)
 {
 
     m_squareDimension = static_cast<int>(amount * m_lock_squareDimension);
+    ZoomNodes();
     update();
+}
+void BlackBoard::ZoomNodes()
+{
+    QObject* cur=static_cast<QObject*>(this);
+    QObjectList allc=cur->children();
+    for(int i=0;i<allc.length();i++)
+    {
+        QQuickItem* c=dynamic_cast<QQuickItem*>(allc[i]);
+        if(c!=nullptr)
+        {
+             c->setScale(static_cast<qreal>(curZoom));
+        }
+    }
 }
 
 void BlackBoard::keyPressEvent(QKeyEvent *e)

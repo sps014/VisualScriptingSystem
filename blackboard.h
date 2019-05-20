@@ -76,7 +76,8 @@ private:
     int BigBlock() const;
 
     void ZoomAmountModifier(int);
-
+    void MoveNodes(QPoint);
+    void ZoomNodes();
 };
 
 #endif // BLACKBOARD_H

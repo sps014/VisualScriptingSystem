@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.3
 import blackBoard 1.0
 import QtQuick.Controls.Material 2.3
+import nodecore 1.0
 Window {
     id:win
     visible: true
@@ -20,6 +21,12 @@ Window {
         {
             id:board
             anchors.fill: parent
+            Node
+            {
+                id:node
+                width: 200
+                height: 300
+            }
 
         }
     }

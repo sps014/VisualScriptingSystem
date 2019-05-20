@@ -14,7 +14,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    blackboard.cpp
+    blackboard.cpp \
+    nodecore.cpp \
+    connector.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,4 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    blackboard.h
+    blackboard.h \
+    nodecore.h \
+    connector.h
