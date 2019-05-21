@@ -27,12 +27,23 @@ Window {
                 width: 200
                 objectName: "node2"
                 height: 300
+                panelColor: "magenta"
+                panelGradColor: "yellow"
                 x:300
-                y:300
+                y:200
             }
             Node
             {
                 id:node
+                width: 200
+                height: 300
+                x:300
+                y:100
+            }
+            Node
+            {
+                objectName: "node3"
+
                 width: 200
                 height: 300
             }

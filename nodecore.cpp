@@ -272,6 +272,8 @@ void NodeCore::DrawRopes()
 			outputPort.push_back(P);
 			p1.PortColor = QColor(Qt::magenta);
 			outputPort.push_back(p1);
+            Port p3=p;
+            inputPort.push_back(p3);
 
 		}
 		else
