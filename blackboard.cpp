@@ -1,5 +1,5 @@
 #include "blackboard.h"
-
+#include<nodecore.h>
 BlackBoard::BlackBoard()
 {
     setAcceptedMouseButtons(Qt::AllButtons);
@@ -135,6 +135,8 @@ void BlackBoard::paint(QPainter *painter)
       painter->setRenderHints(QPainter::Antialiasing,true);
       painter->setPen(Qt::black);
       DrawGridLines(painter);
+      DrawConnectors(painter);
+      DrawCurrentLines(painter);
 
 }
 void BlackBoard::DrawGridLines(QPainter *painter)
@@ -261,6 +263,56 @@ void BlackBoard::keyPressEvent(QKeyEvent *e)
         {
             ZoomAmountModifier(-1);
 
+        }
+    }
+}
+void BlackBoard::DrawConnectors(QPainter *painter)
+{
+    QObjectList pare=children();
+    for(int i=0;i<pare.length();i++)
+    {
+        NodeCore* c=dynamic_cast<NodeCore*>(pare[i]);
+        if(c!=nullptr)
+        {
+
+            for(int j=0;j<c->outputPort.length()&&c->outputPort[j].Target!=nullptr;j++)
+            {
+
+                QPoint p1=c->outputPort[j].GetWorldPosition();
+                QPoint p2=c->outputPort[j].Target->GetWorldPosition();
+
+                painter->setPen(QPen(c->outputPort[j].PortColor,5));
+                painter->drawLine(p1.x(),p1.y(),p1.x()+40,p1.y());
+                painter->drawLine(p1.x()+40,p1.y(),p2.x()-40,p2.y());
+                painter->drawLine(p2.x()-40,p2.y(),p2.x(),p2.y());
+            }
+        }
+    }
+}
+void BlackBoard::DrawCurrentLines(QPainter *e)
+{
+    if(drawCurrentLine)
+    {
+        if(currentPortType==PortType::OutPut)
+        {
+            QPoint p1=fromCurrentLine;
+            QPoint p2=toCurrentLine;
+
+            e->setPen(QPen(currentLineColor,5));
+            e->drawLine(p1.x(),p1.y(),p1.x()+40,p1.y());
+            e->drawLine(p1.x()+40,p1.y(),p2.x()-40,p2.y());
+            e->drawLine(p2.x()-40,p2.y(),p2.x(),p2.y());
+
+        }
+        else
+        {
+            QPoint p1=fromCurrentLine;
+            QPoint p2=toCurrentLine;
+
+            e->setPen(QPen(currentLineColor,5));
+            e->drawLine(p1.x(),p1.y(),p1.x()-40,p1.y());
+            e->drawLine(p1.x()-40,p1.y(),p2.x()+40,p2.y());
+            e->drawLine(p2.x()+40,p2.y(),p2.x(),p2.y());
         }
     }
 }

@@ -86,7 +86,6 @@ void NodeCore::setTitle(const QString c)
     }
 }
 
-
 QColor NodeCore::backgroundColor() const
 {
     return m_backgroundColor;
@@ -125,8 +124,10 @@ int NodeCore::panelHeight() const
 
 void NodeCore::paint(QPainter *painter)
 {
+    DrawRopes();
     DrawBody(painter);
     DrawTitle(painter);
+    DrawPorts(painter);
 }
 void NodeCore::DrawBody(QPainter *painter)
 {
@@ -156,24 +157,232 @@ void NodeCore::DrawTitle(QPainter *e)
     int y=f.height();
     e->drawText(x/2,y,m_title);
 }
-
-void NodeCore::mouseMoveEvent(QMouseEvent *e)
+void NodeCore::DrawPorts(QPainter *e)
 {
-    if(isMouseDown)
+    e->setRenderHint(QPainter::RenderHint::Antialiasing,true);
+    for(int i=0;i<inputPort.length();i++)
     {
-        QPoint curr=QPoint(static_cast<int>(position().x()),static_cast<int>(position().y()));
-        QPoint l=curr-lastMousePosition+e->pos();
-        setPosition(l);
+        e->setBrush(inputPort[i].PortColor);
+        int r=static_cast<int>(inputPort[i].Radius);
+        e->drawEllipse(inputPort[i].Position,r,r);
     }
+    for(int i=0;i<outputPort.length();i++)
+    {
+        e->setBrush(outputPort[i].PortColor);
+        int r=static_cast<int>(outputPort[i].Radius);
+        e->drawEllipse(outputPort[i].Position,r,r);
+    }
+}
+
+bool NodeCore::IsMouseOnHeader(QPoint p)
+{
+    if(p.x()>0&&p.x()<=width())
+    {
+        if(p.y()>0 && p.y()<=panelHeight())
+            return true;
+    }
+    return false;
 }
 
 
 void NodeCore::mousePressEvent(QMouseEvent *e)
 {
-    isMouseDown=true;
+    setFocus(true);
     lastMousePosition=e->pos();
+    if(IsMouseOnHeader(e->pos()))
+    {
+        mouseClickedOnHeader=true;
+    }
+    else
+    {
+        PortClickHelper(e->pos());
+    }
 }
-void NodeCore::mouseReleaseEvent(QMouseEvent *)
+
+
+void NodeCore::mouseMoveEvent(QMouseEvent *e)
 {
-    isMouseDown=false;
+    DrawRopes();
+    if(mouseClickedOnHeader)
+    {
+        QPoint curr=QPoint(static_cast<int>(position().x()),static_cast<int>(position().y()));
+        QPoint l=curr-lastMousePosition+e->pos();
+        setPosition(l);
+    }
+    PortLineMoveHelper(e->pos());
+
+}
+
+void NodeCore::mouseReleaseEvent(QMouseEvent *e)
+{
+    mouseClickedOnHeader=false;
+    ReleasePortTargeter(e->pos());
+
+}
+
+Port *NodeCore::GetClickedPort(QPoint e)
+{
+    Port* p=nullptr;
+
+    for(int i=0;i<outputPort.length();i++)
+    {
+        if(abs(e.x()-outputPort[i].Position.x())<=outputPort[i].Radius)
+        {
+            if(abs(e.y()-outputPort[i].Position.y())<=outputPort[i].Radius)
+            {
+                p=&outputPort[i];
+            }
+        }
+    }
+    for(int i=0;i<inputPort.length();i++)
+    {
+        if(abs(e.x()-inputPort[i].Position.x())<=inputPort[i].Radius)
+        {
+            if(abs(e.y()-inputPort[i].Position.y())<=inputPort[i].Radius)
+            {
+                p=&inputPort[i];
+            }
+        }
+    }
+    return p;
+}
+void NodeCore::DrawRopes()
+{
+    if(inputPort.length()==0&&outputPort.length()==0)
+    {
+    Port P,p;
+    P.Position=QPoint(180,75);
+    p.Position=QPoint(20,75);
+    P.Type=PortType::OutPut;
+    p.Type=PortType::Input;
+    p.PortColor=QColor(Qt::yellow);
+    QObject* q=parent()->findChild<QObject*>("node2");
+    p.Parent=this;
+    P.Parent=this;
+    if(q==nullptr)
+    {
+        return;
+    }
+
+    if(this!=q)
+    {
+    outputPort.push_back(P);
+    }
+    else
+    {
+        inputPort.push_back(p);
+    }
+    }
+    update();
+}
+
+void NodeCore::PortClickHelper(QPoint e)
+{
+    Port* p=GetClickedPort(e);
+    if(p!=nullptr)
+    {
+        BlackBoard* b=dynamic_cast<BlackBoard*>(parent());
+        b->drawCurrentLine=true;
+        b->currentPortType=p->Type;
+        b->currentLineColor=p->PortColor;
+        b->fromCurrentLine=p->GetWorldPosition();
+        b->toCurrentLine=e+ConvertQPoint(position());
+       if(p->Type==PortType::Input)
+       {
+           inputPortClicked=true;
+
+       }
+       else
+       {
+           outPutPortClicked=true;
+       }
+       currentPort=p;
+    }
+}
+void NodeCore::PortLineMoveHelper(QPoint e)
+{
+    if(inputPortClicked||outPutPortClicked)
+    {
+        BlackBoard* b=dynamic_cast<BlackBoard*>(parent());
+        b->toCurrentLine=e+ConvertQPoint(position());
+        b->fromCurrentLine=currentPort->GetWorldPosition();
+    }
+    dynamic_cast<QQuickItem*>(parent())->update();
+}
+void NodeCore::ReleasePortTargeter(QPoint e)
+{
+    BlackBoard* b=dynamic_cast<BlackBoard*>(parent());
+    b->drawCurrentLine=false;
+    b->update();
+    if(inputPortClicked)
+    {
+        inputPortClicked=false;
+        Port *p=GetPortNearestAtPosition(e+ConvertQPoint(position()));
+        if(p!=nullptr)
+        {
+            if(p->Type==PortType::OutPut)
+                BindPort(currentPort,p);
+        }
+    }
+    if(outPutPortClicked)
+    {
+        outPutPortClicked=false;
+        Port *p=GetPortNearestAtPosition(e+ConvertQPoint(position()));
+        qDebug()<<p;
+        if(p!=nullptr)
+        { if(p->Type==PortType::Input)
+                BindPort(currentPort,p);
+        }
+    }
+    currentPort=nullptr;
+}
+
+QPoint NodeCore::ConvertQPoint(QPointF q)
+{
+    return QPoint(static_cast<int>(q.x()),static_cast<int>(q.y()));
+}
+
+Port* NodeCore::GetPortNearestAtPosition(QPoint e)
+{
+    Port *p=nullptr;
+    QObjectList children=parent()->children();
+    for(int i=0;i<children.length();i++)
+    {
+        NodeCore* n=dynamic_cast<NodeCore*>(children[i]);
+        if(n!=this&&n!=nullptr)
+        {
+            qDebug()<<e<<currentPort->GetWorldPosition();
+            for(int j=0;j<n->inputPort.length();j++)
+            {
+                if(abs(e.x()-n->inputPort[j].GetWorldPosition().x())<=n->inputPort[j].Radius)
+                {
+                    if(abs(e.y()-n->inputPort[j].GetWorldPosition().y())<=n->inputPort[j].Radius)
+                    {
+                        p=&n->inputPort[j];
+                    }
+                }
+            }
+            for(int j=0;j<n->outputPort.length();j++)
+            {
+                if(abs(e.x()-n->outputPort[j].GetWorldPosition().x())<=n->outputPort[j].Radius)
+                {
+                    if(abs(e.y()-n->outputPort[j].GetWorldPosition().y())<=n->outputPort[j].Radius)
+                    {
+                        p=&n->outputPort[j];
+                    }
+                }
+            }
+        }
+    }
+    return p;
+}
+
+void NodeCore::BindPort(Port *p1, Port *p2)
+{
+    if(p1->Type==PortType::OutPut)
+        p1->Target=p2;
+    else
+    {
+       p2->Target=p1;
+    }
 }

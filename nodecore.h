@@ -3,6 +3,11 @@
 
 #include <QtQuick/QQuickPaintedItem>
 #include<QPainter>
+#include "port.h"
+#include<QList>
+#include<QWidget>
+#include"blackboard.h"
+
 class NodeCore : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -15,6 +20,7 @@ class NodeCore : public QQuickPaintedItem
     Q_PROPERTY(QString title READ title WRITE setTitle)
     Q_PROPERTY(QFont titleFont READ titleFont WRITE setTitleFont)
 
+
 public:
     NodeCore();
     QColor backgroundColor() const;
@@ -25,6 +31,9 @@ public:
     QColor titleColor()const;
     int panelHeight()const;
     QFont titleFont()const;
+    QList<Port> inputPort;
+    QList<Port> outputPort;
+
 protected:
     void paint(QPainter*) override;
     void mouseMoveEvent(QMouseEvent*)override;
@@ -43,6 +52,7 @@ public slots:
     void setTitle(const QString);
     void setTitleFont(const QFont);
 
+
 private:
     QColor m_backgroundColor=QColor(40,40,40);
     QColor m_highlightColor=QColor(Qt::yellow);
@@ -54,11 +64,29 @@ private:
 
     int m_panelHeight=40;
 
-    bool isMouseDown;
+    bool mouseClickedOnHeader=false;
+    bool outPutPortClicked=false;
+    bool inputPortClicked=false;
+
     QPoint lastMousePosition;
 
     void DrawBody(QPainter*);
     void DrawTitle(QPainter*);
+    void DrawPorts(QPainter*);
+    void DrawRopes();
+    bool IsMouseOnHeader(QPoint);
+    Port* GetClickedPort(QPoint);
+
+    QPoint ConvertQPoint(QPointF);
+    Port* GetPortNearestAtPosition(QPoint);
+    void BindPort(Port*,Port*);
+
+    Port* currentPort;
+
+    void PortClickHelper(QPoint);
+    void PortLineMoveHelper(QPoint);
+    void ReleasePortTargeter(QPoint);
+
 };
 
 #endif // NODECORE_H

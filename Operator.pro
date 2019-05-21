@@ -1,5 +1,6 @@
 QT += quick
 CONFIG += c++11
+QT+=widgets
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -16,7 +17,7 @@ SOURCES += \
         main.cpp \
     blackboard.cpp \
     nodecore.cpp \
-    connector.cpp
+    port.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +35,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     blackboard.h \
     nodecore.h \
-    connector.h
+    port.h

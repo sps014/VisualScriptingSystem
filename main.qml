@@ -23,10 +23,20 @@ Window {
             anchors.fill: parent
             Node
             {
+                id:node2
+                width: 200
+                objectName: "node2"
+                height: 300
+                x:300
+                y:300
+            }
+            Node
+            {
                 id:node
                 width: 200
                 height: 300
             }
+
 
         }
     }

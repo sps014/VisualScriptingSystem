@@ -4,6 +4,8 @@
 #include <QtQuick/QQuickPaintedItem>
 #include<QPainter>
 #include<math.h>
+#include<QList>
+#include"port.h"
 
 class BlackBoard : public QQuickPaintedItem
 {
@@ -28,7 +30,13 @@ public:
     int offsetX()const;
     int offsetY()const;
     Q_INVOKABLE
-   void zoom(float);
+    void zoom(float);
+
+    QPoint fromCurrentLine;
+    QPoint toCurrentLine;
+    bool drawCurrentLine;
+    PortType currentPortType;
+    QColor currentLineColor;
 
 protected:
      void paint(QPainter*)override;
@@ -73,11 +81,15 @@ private:
     bool m_isMouseDown;
 
     void DrawGridLines(QPainter*);
+    void DrawConnectors(QPainter*);
+
     int BigBlock() const;
 
     void ZoomAmountModifier(int);
     void MoveNodes(QPoint);
     void ZoomNodes();
+
+    void DrawCurrentLines(QPainter*);
 };
 
 #endif // BLACKBOARD_H
