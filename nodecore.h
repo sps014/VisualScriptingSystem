@@ -87,6 +87,8 @@ private:
     void PortLineMoveHelper(QPoint);
     void ReleasePortTargeter(QPoint);
     bool FindInList(QList<Port*>,Port*);
+
+	BlackBoard* Parent();
 };
 
 #endif // NODECORE_H

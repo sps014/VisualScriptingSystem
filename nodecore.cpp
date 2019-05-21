@@ -248,32 +248,42 @@ Port *NodeCore::GetClickedPort(QPoint e)
 }
 void NodeCore::DrawRopes()
 {
-    if(inputPort.length()==0&&outputPort.length()==0)
-    {
-    Port P,p;
-    P.Position=QPoint(180,75);
-    p.Position=QPoint(20,75);
-    P.Type=PortType::OutPut;
-    p.Type=PortType::Input;
-    p.PortColor=QColor(Qt::yellow);
-    QObject* q=parent()->findChild<QObject*>("node2");
-    p.Parent=this;
-    P.Parent=this;
-    if(q==nullptr)
-    {
-        return;
-    }
+	if (inputPort.length() == 0 && outputPort.length() == 0)
+	{
+		Port P, p,p1,p2;
+		P.Position = QPoint(180, 75);
+		p.Position = QPoint(20, 75);
+		P.Type = PortType::OutPut;
+		p.Type = PortType::Input;
+		p.PortColor = QColor(Qt::yellow);
+		QObject* q = parent()->findChild<QObject*>("node2");
+		//P.MultiConnections=true;
+		p.Parent = this;
+		P.Parent = this;
+		if (q == nullptr)
+		{
+			return;
+		}
 
-    if(this!=q)
-    {
-    outputPort.push_back(P);
-    }
-    else
-    {
-        inputPort.push_back(p);
-    }
-    }
-    update();
+		if (this != q)
+		{
+			p1 = P;
+			p1.Position += QPoint(0, 30);
+			outputPort.push_back(P);
+			p1.PortColor = QColor(Qt::magenta);
+			outputPort.push_back(p1);
+
+		}
+		else
+		{
+			p2 = p;
+			p2.Position += QPoint(0, 30);
+			inputPort.push_back(p);
+			p2.PortColor = QColor(Qt::magenta);
+			inputPort.push_back(p2);
+		}
+		update();
+	}
 }
 
 void NodeCore::PortClickHelper(QPoint e)
@@ -281,7 +291,7 @@ void NodeCore::PortClickHelper(QPoint e)
     Port* p=GetClickedPort(e);
     if(p!=nullptr)
     {
-        BlackBoard* b=dynamic_cast<BlackBoard*>(parent());
+        BlackBoard* b=Parent();
         b->drawCurrentLine=true;
         b->currentPortType=p->Type;
         b->currentLineColor=p->PortColor;
@@ -303,7 +313,7 @@ void NodeCore::PortLineMoveHelper(QPoint e)
 {
     if(inputPortClicked||outPutPortClicked)
     {
-        BlackBoard* b=dynamic_cast<BlackBoard*>(parent());
+        BlackBoard* b=Parent();
         b->toCurrentLine=e+ConvertQPoint(position());
         b->fromCurrentLine=currentPort->GetWorldPosition();
     }
@@ -311,7 +321,7 @@ void NodeCore::PortLineMoveHelper(QPoint e)
 }
 void NodeCore::ReleasePortTargeter(QPoint e)
 {
-    BlackBoard* b=dynamic_cast<BlackBoard*>(parent());
+	BlackBoard* b = Parent();
     b->drawCurrentLine=false;
     b->update();
     if(inputPortClicked)
@@ -321,14 +331,13 @@ void NodeCore::ReleasePortTargeter(QPoint e)
         if(p!=nullptr)
         {
             if(p->Type==PortType::OutPut)
-                BindPort(currentPort,p);
+                BindPort(p,currentPort);
         }
     }
     if(outPutPortClicked)
     {
         outPutPortClicked=false;
         Port *p=GetPortNearestAtPosition(e+ConvertQPoint(position()));
-        qDebug()<<p;
         if(p!=nullptr)
         { if(p->Type==PortType::Input)
                 BindPort(currentPort,p);
@@ -351,7 +360,6 @@ Port* NodeCore::GetPortNearestAtPosition(QPoint e)
         NodeCore* n=dynamic_cast<NodeCore*>(children[i]);
         if(n!=this&&n!=nullptr)
         {
-            qDebug()<<e<<currentPort->GetWorldPosition();
             for(int j=0;j<n->inputPort.length();j++)
             {
                 if(abs(e.x()-n->inputPort[j].GetWorldPosition().x())<=n->inputPort[j].Radius)
@@ -377,42 +385,16 @@ Port* NodeCore::GetPortNearestAtPosition(QPoint e)
     return p;
 }
 
-void NodeCore::BindPort(Port *p1, Port *p2)
+void NodeCore::BindPort(Port* p1, Port* p2)
 {
-
-    if(p1->Type==PortType::OutPut)
-    {
-        if(p1->MultiConnections)
-        {
-            if(!FindInList(p1->Target,p2))
-            {
-                p1->Target.push_back(p2);
-            }
-        }
-        else
-        {
-         p1->Target.erase(p1->Target.begin(),p1->Target.end());
-         p1->Target.push_back(p2);
-        }
-    }
-    else
-    {
-
-        if(p2->MultiConnections)
-        {
-            if(!FindInList(p2->Target,p1))
-            {
-                p2->Target.push_back(p1);
-            }
-        }
-        else
-        {
-         p2->Target.erase(p2->Target.begin(),p2->Target.end());
-         p2->Target.push_back(p1);
-        }
-    }
+    p2->Target=p1;
 }
 bool NodeCore::FindInList(QList<Port*> list,Port* p)
 {
     return  (std::find(list.begin(), list.end(), p) != list.end());
+}
+
+BlackBoard* NodeCore::Parent()
+{
+	return dynamic_cast<BlackBoard*>(parent());
 }

@@ -20,14 +20,11 @@ public:
     QColor PortColor=QColor(Qt::green);
     PortType Type=PortType::Input;
     QPoint Position;
-    QList<Port*> Target;
+    Port* Target=nullptr;
 
-    QPoint GetWorldPosition()
-    {
-        return Position+QPoint(static_cast<int>(Parent->position().x()),static_cast<int>(Parent->position().y()));
-    }
+	QPoint GetWorldPosition();
 
-    bool MultiConnections=false;
+   // bool MultiConnections=false;
 
 };
 

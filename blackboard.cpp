@@ -275,19 +275,16 @@ void BlackBoard::DrawConnectors(QPainter *painter)
         if(c!=nullptr)
         {
 
-            for(int j=0;j<c->outputPort.length()&&c->outputPort[j].Target.size()>0;j++)
+            for(int j=0;j<c->inputPort.length()&&c->inputPort[j].Target!=nullptr;j++)
             {
 
-                QPoint p1=c->outputPort[j].GetWorldPosition();
-                for(int k=0;k<c->outputPort[j].Target.size();k++)
-                {
-                    QPoint p2=c->outputPort[j].Target[k]->GetWorldPosition();
+                QPoint p1=c->inputPort[j].Target->GetWorldPosition();
+                QPoint p2 = c->inputPort[j].GetWorldPosition();
 
-                    painter->setPen(QPen(c->outputPort[j].PortColor,5));
-                    painter->drawLine(p1.x(),p1.y(),p1.x()+40,p1.y());
-                    painter->drawLine(p1.x()+40,p1.y(),p2.x()-40,p2.y());
-                    painter->drawLine(p2.x()-40,p2.y(),p2.x(),p2.y());
-                }
+                painter->setPen(QPen(c->inputPort[j].PortColor,5));
+                painter->drawLine(p1.x(),p1.y(),p1.x()+40,p1.y());
+                painter->drawLine(p1.x()+40,p1.y(),p2.x()-40,p2.y());
+                painter->drawLine(p2.x()-40,p2.y(),p2.x(),p2.y());
             }
         }
     }
