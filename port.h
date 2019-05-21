@@ -2,6 +2,7 @@
 #define PORT_H
 
 #include<QQuickItem>
+#include<QList>
 
 enum PortType
 {
@@ -19,12 +20,15 @@ public:
     QColor PortColor=QColor(Qt::green);
     PortType Type=PortType::Input;
     QPoint Position;
-    Port* Target=nullptr;
+    QList<Port*> Target;
 
     QPoint GetWorldPosition()
     {
         return Position+QPoint(static_cast<int>(Parent->position().x()),static_cast<int>(Parent->position().y()));
     }
+
+    bool MultiConnections=false;
+
 };
 
 #endif // PORT_H

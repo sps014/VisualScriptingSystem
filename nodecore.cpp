@@ -379,10 +379,40 @@ Port* NodeCore::GetPortNearestAtPosition(QPoint e)
 
 void NodeCore::BindPort(Port *p1, Port *p2)
 {
+
     if(p1->Type==PortType::OutPut)
-        p1->Target=p2;
+    {
+        if(p1->MultiConnections)
+        {
+            if(!FindInList(p1->Target,p2))
+            {
+                p1->Target.push_back(p2);
+            }
+        }
+        else
+        {
+         p1->Target.erase(p1->Target.begin(),p1->Target.end());
+         p1->Target.push_back(p2);
+        }
+    }
     else
     {
-       p2->Target=p1;
+
+        if(p2->MultiConnections)
+        {
+            if(!FindInList(p2->Target,p1))
+            {
+                p2->Target.push_back(p1);
+            }
+        }
+        else
+        {
+         p2->Target.erase(p2->Target.begin(),p2->Target.end());
+         p2->Target.push_back(p1);
+        }
     }
+}
+bool NodeCore::FindInList(QList<Port*> list,Port* p)
+{
+    return  (std::find(list.begin(), list.end(), p) != list.end());
 }

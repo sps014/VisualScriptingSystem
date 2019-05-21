@@ -86,7 +86,7 @@ private:
     void PortClickHelper(QPoint);
     void PortLineMoveHelper(QPoint);
     void ReleasePortTargeter(QPoint);
-
+    bool FindInList(QList<Port*>,Port*);
 };
 
 #endif // NODECORE_H
