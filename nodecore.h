@@ -5,10 +5,13 @@
 #include<QPainter>
 #include "port.h"
 #include<QList>
+#include<QApplication>
+#include<QClipboard>
 #include"blackboard.h"
 #include<labelcore.h>
 #include<checkboxcore.h>
 #include<numberboxcore.h>
+#include<textboxcore.h>
 
 class NodeCore : public QQuickPaintedItem
 {
@@ -39,7 +42,7 @@ public:
     QList<Label> labelList;
     QList<CheckBox> checkBoxList;
     QList<NumberBox> numberBoxList;
-
+    QList<TextBox> textBoxList;
 
 protected:
     void paint(QPainter*) override;
@@ -85,6 +88,7 @@ private:
     void DrawLabels(QPainter*);
     void DrawCheckBoxes(QPainter*);
     void DrawNumberBoxes(QPainter*);
+    void DrawTextBoxes(QPainter*);
 
     void DrawRopes();
     bool IsMouseOnHeader(QPoint);
@@ -92,6 +96,7 @@ private:
     Port* GetClickedPort(QPoint);
     CheckBox* GetClickedCheckBox(QPoint);
     NumberBox* GetClickedNumberBox(QPoint);
+    TextBox* GetClickedTextBox(QPoint);
 
     QPoint ConvertQPoint(QPointF);
     Port* GetPortNearestAtPosition(QPoint);
@@ -99,10 +104,12 @@ private:
 
     Port* currentPort;
     NumberBox* currentNumberBox=nullptr;
+    TextBox* currentTextBox=nullptr;
 
     void PortClickHelper(QPoint);
     void CheckBoxClickHelper(QPoint);
     void NumberBoxClickHelper(QPoint);
+    void TextBoxClickHelper(QPoint);
 
     void PortLineMoveHelper(QPoint);
     void ReleasePortTargeter(QPoint);

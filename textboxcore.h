@@ -1,12 +1,13 @@
-#ifndef NUMBERBOXCORE_H
-#define NUMBERBOXCORE_H
+#ifndef TEXTBOXCORE_H
+#define TEXTBOXCORE_H
+
 
 #include<QPoint>
 #include<QColor>
 #include<coreui.h>
 #include<QFont>
 
-class NumberBox:public CoreUI
+class TextBox
 {
 public:
     int Width=100;
@@ -19,17 +20,12 @@ public:
     QColor BorderColor=QColor(Qt::black);
     QColor HighlightColor=QColor(34,141,255);
     int CursorPos=0;
-    NumberBox()
+    TextBox()
     {
         CursorPos=Text.length();
     }
-    double value()const
-    {
-        return Text.toDouble();
-    }
 
     int MaxCharacters=8;
-
 };
 
-#endif // NUMBERBOXCORE_H
+#endif // TEXTBOXCORE_H

@@ -39,4 +39,5 @@ HEADERS += \
     labelcore.h \
     checkboxcore.h \
     numberboxcore.h \
-    coreui.h
+    coreui.h \
+    textboxcore.h

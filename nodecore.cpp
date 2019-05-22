@@ -132,6 +132,7 @@ void NodeCore::paint(QPainter *painter)
     DrawLabels(painter);
     DrawCheckBoxes(painter);
     DrawNumberBoxes(painter);
+    DrawTextBoxes(painter);
 }
 void NodeCore::DrawBody(QPainter *painter)
 {
@@ -220,14 +221,59 @@ void NodeCore::DrawNumberBoxes(QPainter *e)
         e->drawRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height);
         QColor bcol=currentNumberBox==nullptr?n->BackgroundColor:n->HighlightColor;
         e->fillRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height,bcol);
+
+        //Draw Text
         QFontMetrics f(n->Font);
-        int x=f.width(n->Text);
+        f.width(n->Text);
         int y=f.height();
         e->setPen(n->ForeGroundColor);
         e->setFont(n->Font);
         QString text=n->Text;
+
+        //Draw Cursor
         if(currentNumberBox!=nullptr)
             text.insert(n->CursorPos,'|');
+
+        //Draw .. for extended Line
+        if(n->Text.length()>n->MaxCharacters)
+        {
+            n->CursorPos=n->Text.length();
+            text.resize(n->MaxCharacters-3);
+            text+="..";
+        }
+        QPoint p=n->Pos+QPoint(5,2*y/3);
+        e->drawText(p,text);
+    }
+}
+void NodeCore::DrawTextBoxes(QPainter *e)
+{
+    for(int i=0;i<textBoxList.length();i++)
+    {
+        TextBox *n=&textBoxList[i];
+        e->setPen(n->BorderColor);
+        e->drawRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height);
+        QColor bcol=currentTextBox==nullptr?n->BackgroundColor:n->HighlightColor;
+        e->fillRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height,bcol);
+
+        //Draw Text
+        QFontMetrics f(n->Font);
+        f.width(n->Text);
+        int y=f.height();
+        e->setPen(n->ForeGroundColor);
+        e->setFont(n->Font);
+        QString text=n->Text;
+
+        //Draw Cursor
+        if(currentTextBox!=nullptr)
+            text.insert(n->CursorPos,'|');
+
+        //Draw .. for extended Line
+        if(n->Text.length()>n->MaxCharacters)
+        {
+            n->CursorPos=n->Text.length();
+            text.resize(n->MaxCharacters-3);
+            text+="..";
+        }
         QPoint p=n->Pos+QPoint(5,2*y/3);
         e->drawText(p,text);
     }
@@ -257,6 +303,7 @@ void NodeCore::mousePressEvent(QMouseEvent *e)
         PortClickHelper(e->pos());
         CheckBoxClickHelper(e->pos());
         NumberBoxClickHelper(e->pos());
+        TextBoxClickHelper(e->pos());
     }
 }
 
@@ -284,6 +331,7 @@ void NodeCore::focusOutEvent(QFocusEvent *e)
     if(e->lostFocus())
     {
         currentNumberBox=nullptr;
+        currentTextBox=nullptr;
         update();
     }
 }
@@ -343,9 +391,9 @@ void NodeCore::DrawRopes()
             l.Text="X";
             l.Pos=P.Position-QPoint(40,-5);
             labelList.push_back(l);
-            NumberBox n;
+            TextBox n;
             n.Pos=QPoint(20,65);
-            numberBoxList.append(n);
+            textBoxList.append(n);
 			outputPort.push_back(p1);
 
 		}
@@ -411,6 +459,21 @@ void NodeCore::NumberBoxClickHelper(QPoint e)
     else
     {
         currentNumberBox=nullptr;
+
+    }
+    update();
+
+}
+void NodeCore::TextBoxClickHelper(QPoint e)
+{
+    TextBox* c=GetClickedTextBox(e);
+    if(c!=nullptr)
+    {
+        currentTextBox=c;
+    }
+    else
+    {
+        currentTextBox=nullptr;
 
     }
     update();
@@ -565,6 +628,22 @@ NumberBox* NodeCore::GetClickedNumberBox(QPoint e)
     }
     return p;
 }
+TextBox* NodeCore::GetClickedTextBox(QPoint e)
+{
+    TextBox* p=nullptr;
+
+    for(int i=0;i<textBoxList.length();i++)
+    {
+        if(abs(e.x()-textBoxList[i].Pos.x())<=textBoxList[i].Width)
+        {
+            if(abs(e.y()-textBoxList[i].Pos.y())<=textBoxList[i].Height)
+            {
+                p=&textBoxList[i];
+            }
+        }
+    }
+    return p;
+}
 
 void NodeCore::keyPressEvent(QKeyEvent *e)
 {
@@ -603,6 +682,94 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
         {
             currentNumberBox->Text.insert(currentNumberBox->CursorPos,static_cast<QChar>(e->key()));
             currentNumberBox->CursorPos++;
+        }
+        if( e->modifiers().testFlag(Qt::ControlModifier))
+        {
+            if(e->key()==Qt::Key::Key_C)
+            {
+                QClipboard *clipboard = QApplication::clipboard();
+                clipboard->setText(currentNumberBox->Text);
+            }
+            else if(e->key()==Qt::Key::Key_V)
+            {
+                QClipboard *clipboard = QApplication::clipboard();
+                QRegExp re("\\d*");
+                if (re.exactMatch(clipboard->text()))
+                currentNumberBox->Text=clipboard->text();
+                currentNumberBox->CursorPos=currentNumberBox->Text.length();
+            }
+
+        }
+        update();
+    }
+    if(currentTextBox!=nullptr)
+    {
+        if(e->key()==Qt::Key::Key_Backspace)
+        {
+            if(currentTextBox->CursorPos>0)
+            {
+                currentTextBox->Text.remove(currentTextBox->CursorPos-1,1);
+                currentTextBox->CursorPos--;
+            }
+        }
+        else if(e->key()==Qt::Key::Key_Delete)
+        {
+           // if(currentNumberBox->CursorPos<currentNumberBox->Text.length())
+            {
+                currentTextBox->Text.remove(currentTextBox->CursorPos,1);
+            }
+        }
+        else if(e->key()==Qt::Key::Key_Left)
+        {
+            if(currentTextBox->CursorPos>0)
+            {
+                currentTextBox->CursorPos--;
+            }
+        }
+        else if(e->key()==Qt::Key::Key_Right)
+        {
+            if(currentTextBox->CursorPos<currentTextBox->Text.length())
+            {
+                currentTextBox->CursorPos++;
+            }
+        }
+        else if(e->key()==Qt::Key::Key_CapsLock)
+        {
+            update();
+        }
+        else if(e->key()==Qt::Key::Key_Tab)
+        {
+            for(int i=0;i<8;i++){
+                currentTextBox->Text.insert(currentTextBox->CursorPos,' ');
+                currentTextBox->CursorPos++;
+            }
+        }
+        else if(std::isprint(e->key()))
+        {
+            if(e->modifiers().testFlag(Qt::ShiftModifier))
+            {
+                currentTextBox->Text.insert(currentTextBox->CursorPos,std::toupper(static_cast<char>(e->key())));
+            }
+            else
+                currentTextBox->Text.insert(currentTextBox->CursorPos,std::tolower(static_cast<char>(e->key())));
+            currentTextBox->CursorPos++;
+        }
+        else if( e->modifiers().testFlag(Qt::ControlModifier))
+        {
+            if(e->key()==Qt::Key::Key_C)
+            {
+                QClipboard *clipboard = QApplication::clipboard();
+                clipboard->setText(currentTextBox->Text);
+            }
+            else if(e->key()==Qt::Key::Key_V)
+            {
+                QClipboard *clipboard = QApplication::clipboard();
+                QRegExp re("\\d*");
+                if (re.exactMatch(clipboard->text()))
+                currentTextBox->Text=clipboard->text();
+                currentTextBox->CursorPos=currentTextBox->Text.length();
+            }
+
         }
         update();
     }
