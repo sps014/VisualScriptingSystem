@@ -21,10 +21,9 @@ public:
     PortType Type=PortType::Input;
     QPoint Position;
     Port* Target=nullptr;
-
+    Port* InputPort=nullptr;
 	QPoint GetWorldPosition();
 
-   // bool MultiConnections=false;
 
 };
 

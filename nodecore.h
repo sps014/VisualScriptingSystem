@@ -88,6 +88,8 @@ private:
     void ReleasePortTargeter(QPoint);
     bool FindInList(QList<Port*>,Port*);
 
+    void ConnectionRemover();
+
 	BlackBoard* Parent();
 };
 

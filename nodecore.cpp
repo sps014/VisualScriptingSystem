@@ -333,14 +333,23 @@ void NodeCore::ReleasePortTargeter(QPoint e)
             if(p->Type==PortType::OutPut)
                 BindPort(p,currentPort);
         }
+        else
+        {
+            ConnectionRemover();
+        }
     }
     if(outPutPortClicked)
     {
         outPutPortClicked=false;
         Port *p=GetPortNearestAtPosition(e+ConvertQPoint(position()));
         if(p!=nullptr)
-        { if(p->Type==PortType::Input)
+        {
+            if(p->Type==PortType::Input)
                 BindPort(currentPort,p);
+        }
+        else
+        {
+            ConnectionRemover();
         }
     }
     currentPort=nullptr;
@@ -388,7 +397,9 @@ Port* NodeCore::GetPortNearestAtPosition(QPoint e)
 void NodeCore::BindPort(Port* p1, Port* p2)
 {
     p2->Target=p1;
+    p1->InputPort=p2;
 }
+
 bool NodeCore::FindInList(QList<Port*> list,Port* p)
 {
     return  (std::find(list.begin(), list.end(), p) != list.end());
@@ -397,4 +408,20 @@ bool NodeCore::FindInList(QList<Port*> list,Port* p)
 BlackBoard* NodeCore::Parent()
 {
 	return dynamic_cast<BlackBoard*>(parent());
+}
+void NodeCore::ConnectionRemover()
+{
+    if(currentPort==nullptr)
+    {
+        return;
+    }
+    if(currentPort->Type==PortType::Input)
+    {
+        currentPort->Target=nullptr;
+    }
+    else
+    {
+        if(currentPort->InputPort!=nullptr)
+        currentPort->InputPort->Target=nullptr;
+    }
 }

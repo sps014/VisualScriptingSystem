@@ -24,17 +24,22 @@ Window {
             Node
             {
                 id:node2
-                width: 200
+                width: 150
                 objectName: "node2"
-                height: 300
+                height: 150
                 x:300
                 y:300
+                panelColor: "brown"
+                panelGradColor: "yellow"
+                title: "print"
             }
             Node
             {
                 id:node
+                title: "vector2"
+                panelGradColor: "purple"
                 width: 200
-                height: 300
+                height: 200
             }
 
 
