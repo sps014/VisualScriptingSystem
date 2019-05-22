@@ -12,7 +12,7 @@ public:
     int Width=100;
     int Height=26;
     QPoint Pos;
-    QString Text="";
+    QString Text="0";
     QFont Font=QFont("Segoe UI",12,-1,true);
     QColor BackgroundColor=QColor(60,60,60);
     QColor ForeGroundColor=QColor(Qt::white);

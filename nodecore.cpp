@@ -125,7 +125,6 @@ int NodeCore::panelHeight() const
 
 void NodeCore::paint(QPainter *painter)
 {
-    DrawRopes();
     DrawBody(painter);
     DrawTitle(painter);
     DrawPorts(painter);
@@ -361,52 +360,6 @@ Port *NodeCore::GetClickedPort(QPoint e)
         }
     }
     return p;
-}
-void NodeCore::DrawRopes()
-{
-	if (inputPort.length() == 0 && outputPort.length() == 0)
-	{
-		Port P, p,p1,p2;
-		P.Position = QPoint(180, 75);
-		p.Position = QPoint(20, 75);
-		P.Type = PortType::OutPut;
-		p.Type = PortType::Input;
-		p.PortColor = QColor(Qt::yellow);
-		QObject* q = parent()->findChild<QObject*>("node2");
-		//P.MultiConnections=true;
-		p.Parent = this;
-		P.Parent = this;
-		if (q == nullptr)
-		{
-			return;
-		}
-
-		if (this != q)
-		{
-			p1 = P;
-			p1.Position += QPoint(0, 30);
-			outputPort.push_back(P);
-			p1.PortColor = QColor(Qt::magenta);
-            Label l;
-            l.Text="X";
-            l.Pos=P.Position-QPoint(40,-5);
-            labelList.push_back(l);
-            TextBox n;
-            n.Pos=QPoint(20,65);
-            textBoxList.append(n);
-			outputPort.push_back(p1);
-
-		}
-		else
-		{
-			p2 = p;
-			p2.Position += QPoint(0, 30);
-			inputPort.push_back(p);
-			p2.PortColor = QColor(Qt::magenta);
-			inputPort.push_back(p2);
-		}
-		update();
-	}
 }
 
 void NodeCore::PortClickHelper(QPoint e)

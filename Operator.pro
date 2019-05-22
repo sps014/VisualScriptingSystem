@@ -17,7 +17,10 @@ SOURCES += \
         main.cpp \
     blackboard.cpp \
     nodecore.cpp \
-    port.cpp
+    port.cpp \
+    printnode.cpp \
+    addnode.cpp \
+    var1d.cpp
 
 RESOURCES += qml.qrc
 
@@ -40,4 +43,7 @@ HEADERS += \
     checkboxcore.h \
     numberboxcore.h \
     coreui.h \
-    textboxcore.h
+    textboxcore.h \
+    printnode.h \
+    addnode.h \
+    var1d.h

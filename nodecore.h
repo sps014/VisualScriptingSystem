@@ -90,7 +90,6 @@ private:
     void DrawNumberBoxes(QPainter*);
     void DrawTextBoxes(QPainter*);
 
-    void DrawRopes();
     bool IsMouseOnHeader(QPoint);
 
     Port* GetClickedPort(QPoint);

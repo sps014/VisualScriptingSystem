@@ -4,6 +4,9 @@ import QtQuick.Controls 2.3
 import blackBoard 1.0
 import QtQuick.Controls.Material 2.3
 import nodecore 1.0
+import printnode 1.0
+import addnode 1.0
+import var1d 1.0
 Window {
     id:win
     visible: true
@@ -21,27 +24,28 @@ Window {
         {
             id:board
             anchors.fill: parent
-            Node
+
+            Var1D
             {
-                id:node2
-                width: 150
-                objectName: "node2"
-                height: 150
-                x:300
-                y:300
-                panelColor: "brown"
-                panelGradColor: "yellow"
-                title: "print"
+                x:20
+                y:20
             }
-            Node
+            Var1D
             {
-                id:node
-                title: "vector2"
-                panelGradColor: "purple"
-                width: 200
-                height: 200
+                x:20
+                y:200
+            }
 
+            Add
+            {
+                x:200
+                y:200
+            }
 
+            Print
+            {
+                x:400
+                y:300
             }
 
 
