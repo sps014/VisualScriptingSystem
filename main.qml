@@ -40,6 +40,8 @@ Window {
                 panelGradColor: "purple"
                 width: 200
                 height: 200
+
+
             }
 
 

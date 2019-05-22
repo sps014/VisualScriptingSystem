@@ -35,4 +35,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     blackboard.h \
     nodecore.h \
-    port.h
+    port.h \
+    labelcore.h \
+    checkboxcore.h \
+    numberboxcore.h \
+    coreui.h

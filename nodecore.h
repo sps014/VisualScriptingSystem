@@ -5,8 +5,10 @@
 #include<QPainter>
 #include "port.h"
 #include<QList>
-#include<QWidget>
 #include"blackboard.h"
+#include<labelcore.h>
+#include<checkboxcore.h>
+#include<numberboxcore.h>
 
 class NodeCore : public QQuickPaintedItem
 {
@@ -23,6 +25,7 @@ class NodeCore : public QQuickPaintedItem
 
 public:
     NodeCore();
+
     QColor backgroundColor() const;
     QColor highlightColor()const;
     QColor panelColor()const;
@@ -33,12 +36,18 @@ public:
     QFont titleFont()const;
     QList<Port> inputPort;
     QList<Port> outputPort;
+    QList<Label> labelList;
+    QList<CheckBox> checkBoxList;
+    QList<NumberBox> numberBoxList;
+
 
 protected:
     void paint(QPainter*) override;
     void mouseMoveEvent(QMouseEvent*)override;
     void mousePressEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent*) override;
+    void focusOutEvent(QFocusEvent*) override;
+    void keyPressEvent(QKeyEvent *)override;
 
 signals:
 
@@ -73,23 +82,33 @@ private:
     void DrawBody(QPainter*);
     void DrawTitle(QPainter*);
     void DrawPorts(QPainter*);
+    void DrawLabels(QPainter*);
+    void DrawCheckBoxes(QPainter*);
+    void DrawNumberBoxes(QPainter*);
+
     void DrawRopes();
     bool IsMouseOnHeader(QPoint);
+
     Port* GetClickedPort(QPoint);
+    CheckBox* GetClickedCheckBox(QPoint);
+    NumberBox* GetClickedNumberBox(QPoint);
 
     QPoint ConvertQPoint(QPointF);
     Port* GetPortNearestAtPosition(QPoint);
     void BindPort(Port*,Port*);
 
     Port* currentPort;
+    NumberBox* currentNumberBox=nullptr;
 
     void PortClickHelper(QPoint);
+    void CheckBoxClickHelper(QPoint);
+    void NumberBoxClickHelper(QPoint);
+
     void PortLineMoveHelper(QPoint);
     void ReleasePortTargeter(QPoint);
     bool FindInList(QList<Port*>,Port*);
 
     void ConnectionRemover();
-
 	BlackBoard* Parent();
 };
 

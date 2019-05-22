@@ -5,6 +5,7 @@ NodeCore::NodeCore()
     setAcceptedMouseButtons(Qt::AllButtons);
 }
 
+
 void NodeCore::setBackgroundColor(const QColor color)
 {
     if(color==m_backgroundColor)
@@ -128,6 +129,9 @@ void NodeCore::paint(QPainter *painter)
     DrawBody(painter);
     DrawTitle(painter);
     DrawPorts(painter);
+    DrawLabels(painter);
+    DrawCheckBoxes(painter);
+    DrawNumberBoxes(painter);
 }
 void NodeCore::DrawBody(QPainter *painter)
 {
@@ -173,6 +177,61 @@ void NodeCore::DrawPorts(QPainter *e)
         e->drawEllipse(outputPort[i].Position,r,r);
     }
 }
+void NodeCore::DrawLabels(QPainter *e)
+{
+    for(int i=0;i<labelList.length();i++)
+    {
+        e->setPen(labelList[i].Color);
+        e->setFont(labelList[i].Font);
+        e->drawText(labelList[i].Pos,labelList[i].Text);
+    }
+}
+void NodeCore::DrawCheckBoxes(QPainter *e)
+{
+    for(int i=0;i<checkBoxList.length();i++)
+    {
+        CheckBox *c=&checkBoxList[i];
+        e->setPen(c->BorderColor);
+        e->drawRect(c->Pos.x(),c->Pos.y(),c->Width,c->Height);
+        if(c->State==CheckBoxState::Off)
+        {
+            e->fillRect(c->Pos.x(),c->Pos.y(),c->Width,c->Height,c->BackColor);
+        }
+        else
+        {
+            e->fillRect(c->Pos.x(),c->Pos.y(),c->Width,c->Height,c->FillColor);
+            e->setPen(QPen(c->TickColor,2));
+            QPoint p1=c->Pos+QPoint(c->Width/6,1*c->Height/2);
+            QPoint p2=c->Pos+QPoint(2*c->Width/5,7*c->Height/9);
+            QPoint p3=c->Pos+QPoint(4*c->Width/5,1*c->Height/5);
+
+            e->drawLine(p1,p2);
+            e->drawLine(p2,p3);
+        }
+    }
+}
+
+void NodeCore::DrawNumberBoxes(QPainter *e)
+{
+    for(int i=0;i<numberBoxList.length();i++)
+    {
+        NumberBox *n=&numberBoxList[i];
+        e->setPen(n->BorderColor);
+        e->drawRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height);
+        QColor bcol=currentNumberBox==nullptr?n->BackgroundColor:n->HighlightColor;
+        e->fillRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height,bcol);
+        QFontMetrics f(n->Font);
+        int x=f.width(n->Text);
+        int y=f.height();
+        e->setPen(n->ForeGroundColor);
+        e->setFont(n->Font);
+        QString text=n->Text;
+        if(currentNumberBox!=nullptr)
+            text.insert(n->CursorPos,'|');
+        QPoint p=n->Pos+QPoint(5,2*y/3);
+        e->drawText(p,text);
+    }
+}
 
 bool NodeCore::IsMouseOnHeader(QPoint p)
 {
@@ -196,13 +255,14 @@ void NodeCore::mousePressEvent(QMouseEvent *e)
     else
     {
         PortClickHelper(e->pos());
+        CheckBoxClickHelper(e->pos());
+        NumberBoxClickHelper(e->pos());
     }
 }
 
 
 void NodeCore::mouseMoveEvent(QMouseEvent *e)
 {
-    DrawRopes();
     if(mouseClickedOnHeader)
     {
         QPoint curr=QPoint(static_cast<int>(position().x()),static_cast<int>(position().y()));
@@ -218,6 +278,14 @@ void NodeCore::mouseReleaseEvent(QMouseEvent *e)
     mouseClickedOnHeader=false;
     ReleasePortTargeter(e->pos());
 
+}
+void NodeCore::focusOutEvent(QFocusEvent *e)
+{
+    if(e->lostFocus())
+    {
+        currentNumberBox=nullptr;
+        update();
+    }
 }
 
 Port *NodeCore::GetClickedPort(QPoint e)
@@ -271,6 +339,13 @@ void NodeCore::DrawRopes()
 			p1.Position += QPoint(0, 30);
 			outputPort.push_back(P);
 			p1.PortColor = QColor(Qt::magenta);
+            Label l;
+            l.Text="X";
+            l.Pos=P.Position-QPoint(40,-5);
+            labelList.push_back(l);
+            NumberBox n;
+            n.Pos=QPoint(20,65);
+            numberBoxList.append(n);
 			outputPort.push_back(p1);
 
 		}
@@ -308,6 +383,38 @@ void NodeCore::PortClickHelper(QPoint e)
        }
        currentPort=p;
     }
+}
+
+void NodeCore::CheckBoxClickHelper(QPoint e)
+{
+    CheckBox* c=GetClickedCheckBox(e);
+    if(c!=nullptr)
+    {
+        if(c->State==CheckBoxState::On)
+        {
+            c->State=CheckBoxState::Off;
+        }
+        else
+        {
+            c->State=CheckBoxState::On;
+        }
+        update();
+    }
+}
+void NodeCore::NumberBoxClickHelper(QPoint e)
+{
+    NumberBox* c=GetClickedNumberBox(e);
+    if(c!=nullptr)
+    {
+        currentNumberBox=c;
+    }
+    else
+    {
+        currentNumberBox=nullptr;
+
+    }
+    update();
+
 }
 void NodeCore::PortLineMoveHelper(QPoint e)
 {
@@ -423,5 +530,80 @@ void NodeCore::ConnectionRemover()
     {
         if(currentPort->InputPort!=nullptr)
         currentPort->InputPort->Target=nullptr;
+    }
+}
+CheckBox* NodeCore::GetClickedCheckBox(QPoint e)
+{
+    CheckBox* p=nullptr;
+
+    for(int i=0;i<checkBoxList.length();i++)
+    {
+        if(abs(e.x()-checkBoxList[i].Pos.x())<=checkBoxList[i].Width)
+        {
+            if(abs(e.y()-checkBoxList[i].Pos.y())<=checkBoxList[i].Height)
+            {
+                p=&checkBoxList[i];
+            }
+        }
+    }
+    return p;
+}
+
+NumberBox* NodeCore::GetClickedNumberBox(QPoint e)
+{
+    NumberBox* p=nullptr;
+
+    for(int i=0;i<numberBoxList.length();i++)
+    {
+        if(abs(e.x()-numberBoxList[i].Pos.x())<=numberBoxList[i].Width)
+        {
+            if(abs(e.y()-numberBoxList[i].Pos.y())<=numberBoxList[i].Height)
+            {
+                p=&numberBoxList[i];
+            }
+        }
+    }
+    return p;
+}
+
+void NodeCore::keyPressEvent(QKeyEvent *e)
+{
+    if(currentNumberBox!=nullptr)
+    {
+        if(e->key()==Qt::Key::Key_Backspace)
+        {
+            if(currentNumberBox->CursorPos>0)
+            {
+                currentNumberBox->Text.remove(currentNumberBox->CursorPos-1,1);
+                currentNumberBox->CursorPos--;
+            }
+        }
+        if(e->key()==Qt::Key::Key_Delete)
+        {
+           // if(currentNumberBox->CursorPos<currentNumberBox->Text.length())
+            {
+                currentNumberBox->Text.remove(currentNumberBox->CursorPos,1);
+            }
+        }
+        if(e->key()==Qt::Key::Key_Left)
+        {
+            if(currentNumberBox->CursorPos>0)
+            {
+                currentNumberBox->CursorPos--;
+            }
+        }
+        if(e->key()==Qt::Key::Key_Right)
+        {
+            if(currentNumberBox->CursorPos<currentNumberBox->Text.length())
+            {
+                currentNumberBox->CursorPos++;
+            }
+        }
+        if((e->key()>=48 && e->key()<=57 )|| e->key()==46)
+        {
+            currentNumberBox->Text.insert(currentNumberBox->CursorPos,static_cast<QChar>(e->key()));
+            currentNumberBox->CursorPos++;
+        }
+        update();
     }
 }
