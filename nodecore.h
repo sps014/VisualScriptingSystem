@@ -44,6 +44,9 @@ public:
     QList<NumberBox> numberBoxList;
     QList<TextBox> textBoxList;
 
+    QString ResultString();
+    QString functionName="";
+
 protected:
     void paint(QPainter*) override;
     void mouseMoveEvent(QMouseEvent*)override;

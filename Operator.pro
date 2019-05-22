@@ -20,7 +20,8 @@ SOURCES += \
     port.cpp \
     printnode.cpp \
     addnode.cpp \
-    var1d.cpp
+    var1d.cpp \
+    nodevaluefinder.cpp
 
 RESOURCES += qml.qrc
 
@@ -46,4 +47,5 @@ HEADERS += \
     textboxcore.h \
     printnode.h \
     addnode.h \
-    var1d.h
+    var1d.h \
+    nodevaluefinder.h

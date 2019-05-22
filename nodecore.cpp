@@ -727,3 +727,13 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
         update();
     }
 }
+
+QString NodeCore::ResultString()
+{
+   QString Result=functionName;
+   for(int i=0;i<inputPort.length();i++)
+   {
+       Result+=dynamic_cast<NodeCore*>(inputPort[i].Target->Parent)->ResultString();
+   }
+   return Result;
+}

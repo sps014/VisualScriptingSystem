@@ -8,6 +8,8 @@ AddNode::AddNode()
     this->setPanelColor(QColor(7,138,123));
     this->setPanelGradColor(QColor(45,53,187));
 
+    this->functionName="add ";
+
     Port p1;
     p1.Parent=this;
     p1.Position=QPoint(20,80);
