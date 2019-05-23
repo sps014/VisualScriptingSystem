@@ -20,9 +20,11 @@ QString NodeValueFinder::getResult(BlackBoard *b)
                 inputNodeOnly.append(c);
         }
     }
+
     QString res;
     for(int i=0;i<inputNodeOnly.size();i++)
     {
+
         res=inputNodeOnly[i]->ResultString();
     }
 

@@ -761,6 +761,8 @@ QString NodeCore::ResultString()
    Result+="(";
    for(int i=0;i<inputPort.length();i++)
    {
+       Port *p=inputPort[i].Target;
+       if (p == nullptr)continue;
        Result+=dynamic_cast<NodeCore*>(inputPort[i].Target->Parent)->ResultString();
        if(i!=inputPort.length()-1)
            Result+=",";
