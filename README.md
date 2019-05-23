@@ -8,11 +8,11 @@ A builtin parser and python transplier is also written.
 
 The UI consist of 3 parts:
 #### BlackBoard 
-     -> black background grid area , movable,zoomable and resizable area,draws all connection(c++).
+  ->black background grid area , movable,zoomable and resizable area,draws all connection.
 #### NodeCore 
-     -> base class of all operational Node entity , contains various properties and it store values and  connections.(c++)
+  ->base class of all operational Node entity , contains various properties and it store values and  connections.
 ##### Node UI Components 
-     -> contain rewritten Label,NumberBox,TextBox,CheckBox , Port Connections etc.(c++).
+     -> contain rewritten Label,NumberBox,TextBox,CheckBox , Port Connections etc.
      
      
      
