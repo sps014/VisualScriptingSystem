@@ -7,6 +7,22 @@ A builtin parser and python transplier is also written.
 
 ![working](https://user-images.githubusercontent.com/45932883/58257493-a515ad00-7d8e-11e9-93a4-959b0749083c.PNG)
 
+The Above Node Connection Generated the following code
+```
+def add(a,b):
+ return a+b
+
+def subtract(a,b):
+ return a-b
+
+def multiply(a,b):
+ return a*b
+
+
+print(multiply(add(9.8 ,11.7),subtract(11.7,9.6)))
+
+```
+
 ---
 
 The UI consist of 3 parts:
