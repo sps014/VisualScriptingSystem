@@ -21,7 +21,8 @@ SOURCES += \
     printnode.cpp \
     addnode.cpp \
     var1d.cpp \
-    nodevaluefinder.cpp
+    nodevaluefinder.cpp \
+    subtract.cpp
 
 RESOURCES += qml.qrc
 
@@ -43,9 +44,9 @@ HEADERS += \
     labelcore.h \
     checkboxcore.h \
     numberboxcore.h \
-    coreui.h \
     textboxcore.h \
     printnode.h \
     addnode.h \
     var1d.h \
-    nodevaluefinder.h
+    nodevaluefinder.h \
+    subtract.h

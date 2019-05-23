@@ -4,7 +4,6 @@
 
 #include<QPoint>
 #include<QColor>
-#include<coreui.h>
 #include<QFont>
 
 class TextBox
@@ -26,6 +25,11 @@ public:
     }
 
     int MaxCharacters=8;
+
+    QString getValue()
+    {
+        return Text;
+    }
 };
 
 #endif // TEXTBOXCORE_H

@@ -4,14 +4,18 @@
 #include<QPoint>
 #include<QColor>
 #include<QFont>
-#include<coreui.h>
-class Label:public CoreUI
+class Label
 {
 public:
     QString Text;
     QFont Font=QFont("Segoe UI",12,-1,true);
     QPoint Pos=QPoint(0,0);
     QColor Color=QColor(Qt::white);
+
+    QString getValue() 
+    {
+        return Text;
+    }
 };
 
 #endif // LABELCORE_H

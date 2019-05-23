@@ -16,10 +16,14 @@ Var1D::Var1D()
     p.PortColor=QColor(7,138,123);
     p.Type=PortType::OutPut;
 
-    this->outputPort.push_back(p);
-
     NumberBox n;
     n.Pos=QPoint(10,60);
 
     this->numberBoxList.push_back(n);
+
+    p.NumberBoxList.push_back(n);
+
+    this->outputPort.push_back(p);
+
+
 }

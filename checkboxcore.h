@@ -4,14 +4,13 @@
 #include<QPoint>
 #include<QPainter>
 #include<QDebug>
-#include<coreui.h>
 
 enum CheckBoxState
 {
-    On,Off
+    On=1,Off=0
 };
 
-class CheckBox:public CoreUI
+class CheckBox
 {
 public:
 QPoint Pos;
@@ -22,6 +21,11 @@ QColor TickColor=QColor(Qt::white);
 QColor BorderColor=QColor(Qt::black);
 int Width=20;
 int Height=20;
+
+QString getValue()
+{
+    return State==1?"true":"false";
+}
 };
 
 #endif // CHECKBOXCORE_H

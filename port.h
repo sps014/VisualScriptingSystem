@@ -3,6 +3,9 @@
 
 #include<QQuickItem>
 #include<QList>
+#include<numberboxcore.h>
+#include<textboxcore.h>
+#include<checkboxcore.h>
 
 enum PortType
 {
@@ -24,7 +27,9 @@ public:
     Port* InputPort=nullptr;
 	QPoint GetWorldPosition();
 
-
+    QList<NumberBox> NumberBoxList;
+    QList<TextBox> TextBoxList;
+    QList<CheckBox> CheckBoxList;
 };
 
 #endif // PORT_H

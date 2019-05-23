@@ -3,10 +3,9 @@
 
 #include<QPoint>
 #include<QColor>
-#include<coreui.h>
 #include<QFont>
 
-class NumberBox:public CoreUI
+class NumberBox
 {
 public:
     int Width=100;
@@ -23,9 +22,10 @@ public:
     {
         CursorPos=Text.length();
     }
-    double value()const
+    
+    QString getValue() 
     {
-        return Text.toDouble();
+        return Text;
     }
 
     int MaxCharacters=8;

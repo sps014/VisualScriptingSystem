@@ -731,6 +731,29 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
 QString NodeCore::ResultString()
 {
    QString Result=functionName;
+   for(int j=0;j<outputPort.length();j++)
+   {
+       for(int k=0;k<outputPort[j].NumberBoxList.length();k++)
+       {
+           NumberBox nb= outputPort[j].NumberBoxList[k];
+
+           for(int l=0;l<numberBoxList.length();l++)
+           {
+               if(numberBoxList[l].Pos==nb.Pos)
+                   Result+=numberBoxList[l].Text+" ";
+           }
+       }
+       for(int k=0;k<outputPort[j].TextBoxList.length();k++)
+       {
+           TextBox nb= outputPort[j].TextBoxList[k];
+
+           for(int l=0;l<textBoxList.length();l++)
+           {
+               if(textBoxList[l].Pos==nb.Pos)
+                   Result+=textBoxList[l].Text+" ";
+           }
+       }
+   }
    for(int i=0;i<inputPort.length();i++)
    {
        Result+=dynamic_cast<NodeCore*>(inputPort[i].Target->Parent)->ResultString();

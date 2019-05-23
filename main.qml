@@ -5,6 +5,7 @@ import blackBoard 1.0
 import QtQuick.Controls.Material 2.3
 import printnode 1.0
 import addnode 1.0
+import subtractnode 1.0
 import noderesults 1.0
 import var1d 1.0
 Window {
@@ -59,6 +60,11 @@ Window {
             Result
             {
                 id:calc
+            }
+            Subtract
+            {
+                y:400
+                x:50
             }
 
         }
