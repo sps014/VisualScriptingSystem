@@ -8,7 +8,7 @@ PrintNode::PrintNode()
     this->setPanelColor(QColor(165,42,42));
     this->setPanelGradColor(QColor(Qt::yellow));
 
-    this->functionName="print ";
+    this->functionName="print";
 
     Port p;
     p.Parent=this;

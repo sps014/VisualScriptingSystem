@@ -3,9 +3,11 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.3
 import blackBoard 1.0
 import QtQuick.Controls.Material 2.3
+import QtQuick.Dialogs 1.2
 import printnode 1.0
 import addnode 1.0
 import subtractnode 1.0
+import multiplynode 1.0
 import noderesults 1.0
 import var1d 1.0
 Window {
@@ -55,7 +57,11 @@ Window {
                 width: 100
                 height: 50
                 text: "Result Get"
-                onClicked: calc.getResult(board)
+                onClicked:
+                {
+                    msg.text=calc.getResult(board)
+                    msg.visible=true
+                }
             }
             Result
             {
@@ -65,6 +71,19 @@ Window {
             {
                 y:400
                 x:50
+            }
+            Multiply
+            {
+                x:200
+                y:400
+            }
+
+            MessageDialog
+            {
+                title: "Output="
+                id:msg
+                icon: StandardIcon.Information
+                standardButtons: StandardButton.Yes
             }
 
         }

@@ -9,7 +9,7 @@ Subtract::Subtract()
     this->setPanelColor(QColor(7,138,123));
     this->setPanelGradColor(QColor(45,53,187));
 
-    this->functionName="subtract ";
+    this->functionName="subtract";
 
     Port p1;
     p1.Parent=this;

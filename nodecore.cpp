@@ -739,7 +739,6 @@ QString NodeCore::ResultString()
 
            for(int l=0;l<numberBoxList.length();l++)
            {
-               if(numberBoxList[l].Pos==nb.Pos)
                    Result+=numberBoxList[l].Text+" ";
            }
        }
@@ -754,9 +753,15 @@ QString NodeCore::ResultString()
            }
        }
    }
+   if(inputPort.length()!=0)
+   Result+="(";
    for(int i=0;i<inputPort.length();i++)
    {
        Result+=dynamic_cast<NodeCore*>(inputPort[i].Target->Parent)->ResultString();
+       if(i!=inputPort.length()-1)
+           Result+=",";
    }
+   if(inputPort.length()!=0)
+   Result+=")";
    return Result;
 }

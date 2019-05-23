@@ -8,7 +8,7 @@ Var1D::Var1D()
     this->setPanelColor(QColor(Qt::green));
     this->setPanelGradColor(QColor(10,160,45));
 
-    this->functionName=" ";
+    this->functionName="";
 
     Port p;
     p.Parent=this;

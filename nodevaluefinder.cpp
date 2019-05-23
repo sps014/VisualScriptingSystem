@@ -4,7 +4,7 @@ NodeValueFinder::NodeValueFinder(QObject *parent) : QObject(parent)
 {
 
 }
-void NodeValueFinder::getResult(BlackBoard *b)
+QString NodeValueFinder::getResult(BlackBoard *b)
 {
     QList<NodeCore*> allNodes;
     QList<NodeCore*> inputNodeOnly;
@@ -20,9 +20,13 @@ void NodeValueFinder::getResult(BlackBoard *b)
                 inputNodeOnly.append(c);
         }
     }
+    QString res;
     for(int i=0;i<inputNodeOnly.size();i++)
     {
-        qDebug()<<inputNodeOnly[i]->ResultString();
+        res=inputNodeOnly[i]->ResultString();
     }
+    ResultParser p;
+    p.OrderResult(res);
+    return res;
 }
 

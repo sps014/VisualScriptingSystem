@@ -1,6 +1,9 @@
 #ifndef NUMBERBOXCORE_H
 #define NUMBERBOXCORE_H
 
+
+#include<resultparser.h>
+
 #include<QPoint>
 #include<QColor>
 #include<QFont>

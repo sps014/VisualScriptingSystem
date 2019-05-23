@@ -6,6 +6,7 @@
 #include<addnode.h>
 #include<var1d.h>
 #include<subtract.h>
+#include <multiplynode.h>
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<AddNode>("addnode",1,0,"Add");
     qmlRegisterType<Var1D>("var1d",1,0,"Var1D");
     qmlRegisterType<Subtract>("subtractnode",1,0,"Subtract");
+    qmlRegisterType<Multiply>("multiplynode",1,0,"Multiply");
+
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

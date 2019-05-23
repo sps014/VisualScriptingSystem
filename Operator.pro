@@ -22,7 +22,9 @@ SOURCES += \
     addnode.cpp \
     var1d.cpp \
     nodevaluefinder.cpp \
-    subtract.cpp
+    subtract.cpp \
+    resultparser.cpp \
+    multiplynode.cpp
 
 RESOURCES += qml.qrc
 
@@ -49,4 +51,6 @@ HEADERS += \
     addnode.h \
     var1d.h \
     nodevaluefinder.h \
-    subtract.h
+    subtract.h \
+    resultparser.h \
+    multiplynode.h

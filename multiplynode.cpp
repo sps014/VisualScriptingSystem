@@ -1,14 +1,14 @@
-#include "addnode.h"
+#include "multiplynode.h"
 
-AddNode::AddNode()
+Multiply::Multiply()
 {
-    this->setTitle("Add");
+    this->setTitle("Multiply");
     this->setHeight(180);
     this->setWidth(150);
-    this->setPanelColor(QColor(7,138,123));
-    this->setPanelGradColor(QColor(45,53,187));
+    this->setPanelColor(QColor(142,68,173));
+    this->setPanelGradColor(QColor(86, 101, 115));
 
-    this->functionName="add";
+    this->functionName="multiply";
 
     Port p1;
     p1.Parent=this;
@@ -43,5 +43,4 @@ AddNode::AddNode()
 
     this->labelList.push_back(l1);
     this->labelList.push_back(l2);
-
 }

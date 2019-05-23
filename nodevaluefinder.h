@@ -10,7 +10,7 @@ class NodeValueFinder : public QObject
     Q_OBJECT
 public:
     explicit NodeValueFinder(QObject *parent = nullptr);
-    Q_INVOKABLE void getResult(BlackBoard *);
+    Q_INVOKABLE QString getResult(BlackBoard *);
 signals:
 
 public slots:
