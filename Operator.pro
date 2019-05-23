@@ -24,7 +24,8 @@ SOURCES += \
     nodevaluefinder.cpp \
     subtract.cpp \
     resultparser.cpp \
-    multiplynode.cpp
+    multiplynode.cpp \
+    cursor.cpp
 
 RESOURCES += qml.qrc
 
@@ -53,4 +54,5 @@ HEADERS += \
     nodevaluefinder.h \
     subtract.h \
     resultparser.h \
-    multiplynode.h
+    multiplynode.h \
+    cursor.h

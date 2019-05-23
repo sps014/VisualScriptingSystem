@@ -19,6 +19,7 @@ class BlackBoard : public QQuickPaintedItem
     Q_PROPERTY(int squareNumber READ squareNumber WRITE setSquareNumber NOTIFY onSquareNumberChanged)
     Q_PROPERTY(int offsetX READ offsetX WRITE setOffsetX)
     Q_PROPERTY(int offsetY READ offsetY WRITE setOffsetY)
+    Q_PROPERTY(bool rightClicked READ rightClicked NOTIFY onRightMouseClickChanged)
 
 public:
     BlackBoard();
@@ -29,6 +30,7 @@ public:
     int squareNumber()const;
     int offsetX()const;
     int offsetY()const;
+
     Q_INVOKABLE
     void zoom(float);
 
@@ -37,6 +39,7 @@ public:
     bool drawCurrentLine;
     PortType currentPortType;
     QColor currentLineColor;
+    bool rightClicked()const;
 
 protected:
      void paint(QPainter*)override;
@@ -50,7 +53,7 @@ signals:
     void onBackgroundColorChanged(const QColor &color);
     void onSquareDimensionChanged(const int &dim);
     void onSquareNumberChanged(const int &n);
-
+    void onRightMouseClickChanged(const bool&);
 
 public slots:
     void setBackgroundColor(const QColor backgroundColor);
@@ -90,6 +93,9 @@ private:
     void ZoomNodes();
 
     void DrawCurrentLines(QPainter*);
+
+    bool m_righClicked;
+
 };
 
 #endif // BLACKBOARD_H

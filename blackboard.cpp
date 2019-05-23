@@ -129,6 +129,11 @@ int BlackBoard::offsetY() const
 {
     return m_offsetY;
 }
+bool BlackBoard::rightClicked()const
+{
+    return m_righClicked;
+}
+
 
 void BlackBoard::paint(QPainter *painter)
 {
@@ -179,6 +184,18 @@ void BlackBoard::mousePressEvent(QMouseEvent *event)
     m_isMouseDown=true;
     m_mouseDownPosition=event->pos();
     this->setFocus(true);
+
+    //right mouse
+
+    if(event->button()==Qt::RightButton)
+    {
+        m_righClicked=true;
+        emit onRightMouseClickChanged(true);
+    }
+    else {
+        m_righClicked=false;
+        emit onRightMouseClickChanged(false);
+    }
 }
 void BlackBoard::mouseReleaseEvent(QMouseEvent*)
 {

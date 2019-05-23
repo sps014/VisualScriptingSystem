@@ -726,6 +726,10 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
         }
         update();
     }
+    if(e->key()==Qt::Key::Key_Delete)
+    {
+        this->deleteLater();
+    }
 }
 
 QString NodeCore::ResultString()
