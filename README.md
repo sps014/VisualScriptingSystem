@@ -3,7 +3,7 @@
 
 A  Cross Platform Node Based Editor developed in QT C++.
 A builtin parser and python transplier is also written.
-It usage absolutely zero third party libaries.
+##### It usage absolutely zero third party libaries.
 
 ![working](https://user-images.githubusercontent.com/45932883/58257493-a515ad00-7d8e-11e9-93a4-959b0749083c.PNG)
 
