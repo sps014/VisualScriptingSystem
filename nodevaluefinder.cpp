@@ -25,8 +25,9 @@ QString NodeValueFinder::getResult(BlackBoard *b)
     {
         res=inputNodeOnly[i]->ResultString();
     }
+
     ResultParser p;
-    p.OrderResult(res);
-    return res;
+    return p.OrderResult(res);
+
 }
 

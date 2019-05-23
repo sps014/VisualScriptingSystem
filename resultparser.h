@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include<QDebug>
+#include<QFile>
+#include<QProcess>
 
 class ResultParser : public QObject
 {
@@ -10,9 +12,7 @@ class ResultParser : public QObject
 public:
     explicit ResultParser(QObject *parent = nullptr);
     QString OrderResult(QString);
-    QString ValidExpression(QString);
-    double Add(QStringList);
-    double Subtract(QStringList);
+
 signals:
 
 public slots:

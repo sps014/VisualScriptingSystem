@@ -6,40 +6,33 @@ ResultParser::ResultParser(QObject *parent) : QObject(parent)
 }
 QString ResultParser::OrderResult(QString s)
 {
-    QStringList splited=s.split(" ");
-    for(int i=0;i<splited.length()/2;i++)
+    QString path="C:\\Users\\shive\\OneDrive\\Desktop\\m.py";
+    QFile file(path);
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        QString temp=splited[i];
-        splited[i]=splited[splited.length()-1-i];
-        splited[splited.length()-1-i]=temp;
+
+        QTextStream stream(&file);
+
+        QString addFunc="def add(a,b):\n return a+b\n";
+        QString subFunc="def subtract(a,b):\n return a-b\n";
+        QString mulFunc="def multiply(a,b):\n return a*b\n";
+
+        stream<<addFunc<<endl;
+        stream<<subFunc<<endl;
+        stream<<mulFunc<<endl;
+
+
+        stream<<"\n"<<s<<endl;
     }
+    file.close();
 
-    QString CalResult="";
+    QProcess q;
+    q.start("python "+path);
+    q.waitForFinished();
+    QString output(q.readAllStandardOutput());
+    output.replace("\r\n","");
+    return output;
 
-    for(int i=0;i<splited.length();i++)
-    {
-        QString temp=splited[i];
-        if(temp=="add")
-        {
-            CalResult+="+ ";
-        }
-        else if("multiply"==temp)
-        {
-            CalResult+="*";
-        }
-        else if(temp=="subtract")
-        {
-            CalResult+="- ";
-        }
-        else if(temp=="print")
-            CalResult+="";
-        else
-        {
-            CalResult+=splited[i]+" ";
-
-        }
-    }
-    return CalResult;
 }
 
 
