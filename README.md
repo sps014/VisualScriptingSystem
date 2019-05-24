@@ -3,8 +3,27 @@
 
 A  Cross Platform Node Based Editor developed in QT C++.
 A builtin parser and python transplier is also written.
+##### It usage absolutely zero third party libaries.
 
 ![working](https://user-images.githubusercontent.com/45932883/58257493-a515ad00-7d8e-11e9-93a4-959b0749083c.PNG)
+
+The Above Node Connection Generated the following code
+```
+def add(a,b):
+ return a+b
+
+def subtract(a,b):
+ return a-b
+
+def multiply(a,b):
+ return a*b
+
+
+print(multiply(add(9.8 ,11.7),subtract(11.7,9.6)))
+
+```
+
+---
 
 The UI consist of 3 parts:
 #### BlackBoard 
@@ -13,12 +32,28 @@ The UI consist of 3 parts:
   ->base class of all operational Node entity , contains various properties and it store values and  connections.
 ##### Node UI Components 
      -> contain rewritten Label,NumberBox,TextBox,CheckBox , Port Connections etc.
-     
-     
+   
+---
+## Caution
+This is very early version things may break or may not work as expected.
+
+---
+## Usage
+1. Right click on blackboard to bring context menu.
+2. Start Adding And Connecting node.
+3. When done Click on Result get button
+4. #### Message Box Display Output if python is installed and Path is set
+5. Currently output python file is generated at  
+```
+C:\Users\shive\OneDrive\Desktop\m.py 
+```
+
+ ---  
      
 ## Output 
 A python transpiled (.py) file generated as output of Program.
 
+---
 
 # Future Plans
 ######  Code Refactoring,Commenting and Code Cleanup
