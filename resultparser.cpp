@@ -47,7 +47,10 @@ QString ResultParser::OrderResult(QString s)
     q.waitForFinished();
     QString output(q.readAllStandardOutput());
     if(output.size()<=0)
-        output=q.readAllStandardError();
+    {
+        output="ERR";
+        output+=q.readAllStandardError();
+    }
     output.replace("\r\n","");
     return output;
 
