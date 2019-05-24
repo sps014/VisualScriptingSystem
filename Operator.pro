@@ -15,50 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    blackboard.cpp \
-    nodecore.cpp \
-    port.cpp \
-    printnode.cpp \
-    addnode.cpp \
-    var1d.cpp \
-    nodevaluefinder.cpp \
-    subtract.cpp \
-    resultparser.cpp \
-    multiplynode.cpp \
-    cursor.cpp \
-    dividenode.cpp \
-    modulonode.cpp \
-    sinnode.cpp \
-    cosnode.cpp \
-    tannode.cpp \
-    asinnode.cpp \
-    acosnode.cpp \
-    atannode.cpp \
-    atan2node.cpp \
-    hypotnode.cpp \
-    lognode.cpp \
-    pownode.cpp \
-    expnode.cpp \
-    sqrtnode.cpp \
-    asinhnode.cpp \
-    acoshnode.cpp \
-    atanhnode.cpp \
-    coshnode.cpp \
-    sinhnode.cpp \
-    tanhnode.cpp \
-    pinode.cpp \
-    econstnode.cpp \
-    degreesnode.cpp \
-    radiansnode.cpp \
-    erfnode.cpp \
-    erfcnode.cpp \
-    gammanode.cpp \
-    lgammanode.cpp \
-    ceilnode.cpp \
-    fabsnode.cpp \
-    factorialnode.cpp \
-    floornode.cpp \
-    frexpnode.cpp
+
+
 
 RESOURCES += qml.qrc
 
@@ -73,52 +31,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+include(NodeSystem/NodeSystem.pri)
+include(NodeSystem/Derived/math/math.pri)
+
 HEADERS += \
-    blackboard.h \
-    nodecore.h \
-    port.h \
-    labelcore.h \
-    checkboxcore.h \
-    numberboxcore.h \
-    textboxcore.h \
-    printnode.h \
-    addnode.h \
-    var1d.h \
-    nodevaluefinder.h \
-    subtract.h \
-    resultparser.h \
-    multiplynode.h \
-    cursor.h \
-    dividenode.h \
-    modulonode.h \
-    sinnode.h \
-    cosnode.h \
-    tannode.h \
-    asinnode.h \
-    acosnode.h \
-    atannode.h \
-    atan2node.h \
-    hypotnode.h \
-    lognode.h \
-    pownode.h \
-    expnode.h \
-    sqrtnode.h \
-    asinhnode.h \
-    acoshnode.h \
-    atanhnode.h \
-    coshnode.h \
-    sinhnode.h \
-    tanhnode.h \
-    pinode.h \
-    econstnode.h \
-    degreesnode.h \
-    radiansnode.h \
-    erfnode.h \
-    erfcnode.h \
-    gammanode.h \
-    lgammanode.h \
-    ceilnode.h \
-    fabsnode.h \
-    factorialnode.h \
-    floornode.h \
-    frexpnode.h
+

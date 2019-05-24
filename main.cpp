@@ -1,53 +1,63 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include<blackboard.h>
-#include<nodevaluefinder.h>
-#include<printnode.h>
-#include<addnode.h>
-#include<var1d.h>
-#include<subtract.h>
-#include <multiplynode.h>
-#include<cursor.h>
-#include<dividenode.h>
-#include"modulonode.h"
 
-#include"sinnode.h"
-#include<cosnode.h>
-#include<tannode.h>
-#include<atannode.h>
-#include<acosnode.h>
-#include<asinnode.h>
-#include<hypotnode.h>
-#include<atan2node.h>
-#include<hypotnode.h>
+#include"NodeSystem/blackboard.h"
+#include"NodeSystem/nodevaluefinder.h"
+#include"NodeSystem/cursor.h"
 
-#include<lognode.h>
-#include<pownode.h>
-#include"sqrtnode.h"
-#include<expnode.h>
 
-#include"sinhnode.h"
-#include<coshnode.h>
-#include<tanhnode.h>
-#include<atanhnode.h>
-#include<acoshnode.h>
-#include<asinhnode.h>
+#include"NodeSystem/Derived/math/printnode.h"
+#include"NodeSystem/Derived/math/addnode.h"
 
-#include"pinode.h"
-#include"econstnode.h"
+#include"NodeSystem/Derived/math/var1d.h"
+#include"NodeSystem/Derived/math/subtract.h"
+#include"NodeSystem/Derived/math/multiplynode.h"
+#include"NodeSystem/Derived/math/dividenode.h"
 
-#include"degreesnode.h"
-#include"radiansnode.h"
+#include"NodeSystem/Derived/math/modulonode.h"
 
-#include"lgammanode.h"
-#include"gammanode.h"
-#include"erfcnode.h"
-#include"erfnode.h"
+#include"NodeSystem/Derived/math/sinnode.h"
+#include"NodeSystem/Derived/math/cosnode.h"
+#include"NodeSystem/Derived/math/tannode.h"
+#include"NodeSystem/Derived/math/atannode.h"
+#include"NodeSystem/Derived/math/asinnode.h"
+#include"NodeSystem/Derived/math/acosnode.h"
 
-#include"ceilnode.h"
-#include"floornode.h"
-#include"factorialnode.h"
-#include"frexpnode.h"
+#include"NodeSystem/Derived/math/hypotnode.h"
+#include"NodeSystem/Derived/math/atan2node.h"
+#include"NodeSystem/Derived/math/hypotnode.h"
+
+#include"NodeSystem/Derived/math/pownode.h"
+#include"NodeSystem/Derived/math/lognode.h"
+#include"NodeSystem/Derived/math/sqrtnode.h"
+#include"NodeSystem/Derived/math/expnode.h"
+
+#include"NodeSystem/Derived/math/sinhnode.h"
+#include"NodeSystem/Derived/math/coshnode.h"
+#include"NodeSystem/Derived/math/tanhnode.h"
+#include"NodeSystem/Derived/math/atanhnode.h"
+#include"NodeSystem/Derived/math/acoshnode.h"
+#include"NodeSystem/Derived/math/asinhnode.h"
+
+#include"NodeSystem/Derived/math/pinode.h"
+#include"NodeSystem/Derived/math/econstnode.h"
+
+#include"NodeSystem/Derived/math/degreesnode.h"
+#include"NodeSystem/Derived/math/radiansnode.h"
+
+
+#include"NodeSystem/Derived/math/lgammanode.h"
+#include"NodeSystem/Derived/math/gammanode.h"
+#include"NodeSystem/Derived/math/erfcnode.h"
+#include"NodeSystem/Derived/math/erfnode.h"
+
+
+#include"NodeSystem/Derived/math/ceilnode.h"
+#include"NodeSystem/Derived/math/floornode.h"
+#include"NodeSystem/Derived/math/factorialnode.h"
+#include"NodeSystem/Derived/math/frexpnode.h"
+
+
 
 int main(int argc, char *argv[])
 {
