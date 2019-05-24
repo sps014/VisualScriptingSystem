@@ -9,6 +9,7 @@
 #include <multiplynode.h>
 #include<cursor.h>
 #include<dividenode.h>
+#include"modulonode.h"
 
 
 int main(int argc, char *argv[])
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Subtract>("subtractnode",1,0,"Subtract");
     qmlRegisterType<Multiply>("multiplynode",1,0,"Multiply");
     qmlRegisterType<Divide>("dividenode",1,0,"Divide");
+    qmlRegisterType<ModuloNode>("modulonode",1,0,"Modulo");
     qmlRegisterType<Cursor>("cursor",1,0,"Cursor");
 
 

@@ -128,6 +128,17 @@ Window {
                                          y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
                             }
                         }
+                        MenuItem
+                        {
+                            text: "Modulo"
+                            onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import modulonode 1.0;
+                                    Modulo {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
+                        }
+
 
 
                     }

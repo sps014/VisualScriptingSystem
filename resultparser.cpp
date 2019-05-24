@@ -17,13 +17,13 @@ QString ResultParser::OrderResult(QString s)
         QString subFunc="def subtract(a,b):\n return a-b\n";
         QString mulFunc="def multiply(a,b):\n return a*b\n";
         QString divFunc="def divide(a,b):\n return a/b\n";
-
+        QString moduFunc="def modulo(a,b):\n return a%b\n";
 
         stream<<addFunc<<endl;
         stream<<subFunc<<endl;
         stream<<mulFunc<<endl;
         stream<<divFunc<<endl;
-
+        stream<<moduFunc<<endl;
 
         stream<<"\n"<<s<<endl;
     }
@@ -33,6 +33,8 @@ QString ResultParser::OrderResult(QString s)
     q.start("python "+path);
     q.waitForFinished();
     QString output(q.readAllStandardOutput());
+    if(output.size()<=0)
+        output=q.readAllStandardError();
     output.replace("\r\n","");
     return output;
 

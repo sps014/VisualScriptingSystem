@@ -26,7 +26,8 @@ SOURCES += \
     resultparser.cpp \
     multiplynode.cpp \
     cursor.cpp \
-    dividenode.cpp
+    dividenode.cpp \
+    modulonode.cpp
 
 RESOURCES += qml.qrc
 
@@ -57,4 +58,5 @@ HEADERS += \
     resultparser.h \
     multiplynode.h \
     cursor.h \
-    dividenode.h
+    dividenode.h \
+    modulonode.h
