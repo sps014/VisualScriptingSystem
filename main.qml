@@ -345,6 +345,16 @@ Window {
                                              y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
                                 }
                             }
+                            MenuItem
+                            {
+                                text: "E"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import econstnode 1.0;
+                                        E {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
                         }
                     }
 

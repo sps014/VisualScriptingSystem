@@ -34,6 +34,7 @@
 #include<asinhnode.h>
 
 #include"pinode.h"
+#include"econstnode.h"
 
 int main(int argc, char *argv[])
 {
@@ -81,6 +82,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<ASinHNode>("asinhnode",1,0,"ASinh");
 
      qmlRegisterType<PiNode>("pinode",1,0,"PI");
+     qmlRegisterType<EconstNode>("econstnode",1,0,"E");
+
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

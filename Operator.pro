@@ -46,7 +46,8 @@ SOURCES += \
     coshnode.cpp \
     sinhnode.cpp \
     tanhnode.cpp \
-    pinode.cpp
+    pinode.cpp \
+    econstnode.cpp
 
 RESOURCES += qml.qrc
 
@@ -97,4 +98,5 @@ HEADERS += \
     coshnode.h \
     sinhnode.h \
     tanhnode.h \
-    pinode.h
+    pinode.h \
+    econstnode.h

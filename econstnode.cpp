@@ -1,14 +1,14 @@
-#include "pinode.h"
+#include "econstnode.h"
 
-PiNode::PiNode()
+EconstNode::EconstNode()
 {
-    this->setTitle("PI");
+    this->setTitle("E");
     this->setHeight(120);
     this->setWidth(150);
     this->setPanelColor(QColor(Qt::green));
     this->setPanelGradColor(QColor(Qt::red));
 
-    this->functionName="math.pi";
+    this->functionName="math.e";
 
     Port p;
     p.Parent=this;
