@@ -21,11 +21,11 @@ QString NodeValueFinder::getResult(BlackBoard *b)
         }
     }
 
-    QString res;
+    QString res="";
     for(int i=0;i<inputNodeOnly.size();i++)
     {
 
-        res=inputNodeOnly[i]->ResultString();
+        res+=inputNodeOnly[i]->ResultString()+"\n";
     }
 
     ResultParser p;

@@ -768,7 +768,7 @@ QString NodeCore::ResultString()
 
            for(int l=0;l<numberBoxList.length();l++)
            {
-                   Result+=numberBoxList[l].Text+" ";
+                   Result+=numberBoxList[l].Text+"";
            }
        }
        for(int k=0;k<outputPort[j].TextBoxList.length();k++)
@@ -778,7 +778,7 @@ QString NodeCore::ResultString()
            for(int l=0;l<textBoxList.length();l++)
            {
                if(textBoxList[l].Pos==nb.Pos)
-                   Result+=textBoxList[l].Text+" ";
+                   Result+=textBoxList[l].Text+"";
            }
        }
    }

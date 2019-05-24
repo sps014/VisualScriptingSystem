@@ -53,7 +53,12 @@ SOURCES += \
     erfnode.cpp \
     erfcnode.cpp \
     gammanode.cpp \
-    lgammanode.cpp
+    lgammanode.cpp \
+    ceilnode.cpp \
+    fabsnode.cpp \
+    factorialnode.cpp \
+    floornode.cpp \
+    frexpnode.cpp
 
 RESOURCES += qml.qrc
 
@@ -111,4 +116,9 @@ HEADERS += \
     erfnode.h \
     erfcnode.h \
     gammanode.h \
-    lgammanode.h
+    lgammanode.h \
+    ceilnode.h \
+    fabsnode.h \
+    factorialnode.h \
+    floornode.h \
+    frexpnode.h

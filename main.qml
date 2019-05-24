@@ -424,6 +424,50 @@ Window {
                                 }
                             }
                         }
+                        Menu
+                        {
+                            title: "Number-Theoretic And Representational"
+                            MenuItem
+                            {
+                                text: "Ceil"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import ceilnode 1.0;
+                                        Ceil {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "Floor"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import floornode 1.0;
+                                        Floor {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "Factorial"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import factorialnode 1.0;
+                                        Factorial {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "Frexp"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import frexpnode 1.0;
+                                        Frexp {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                        }
                     }
 
 

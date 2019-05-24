@@ -22,13 +22,17 @@ QString ResultParser::OrderResult(QString s)
 
 
 
-
-
+        if(s.indexOf("math")>=0)
         stream<<import1<<endl;
+        if(s.indexOf("add")>=0)
         stream<<addFunc<<endl;
+        if(s.indexOf("subtract")>=0)
         stream<<subFunc<<endl;
+        if(s.indexOf("multiply")>=0)
         stream<<mulFunc<<endl;
+        if(s.indexOf("divide")>=0)
         stream<<divFunc<<endl;
+        if(s.indexOf("modulo")>=0)
         stream<<moduFunc<<endl;
 
 

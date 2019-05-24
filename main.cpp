@@ -44,6 +44,11 @@
 #include"erfcnode.h"
 #include"erfnode.h"
 
+#include"ceilnode.h"
+#include"floornode.h"
+#include"factorialnode.h"
+#include"frexpnode.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -99,6 +104,11 @@ int main(int argc, char *argv[])
      qmlRegisterType<ErfcNode>("erfcnode",1,0,"Ergc");
      qmlRegisterType<GammaNode>("gammanode",1,0,"Gamma");
      qmlRegisterType<ErfcNode>("lgammanode",1,0,"LGamma");
+
+     qmlRegisterType<FrexpNode>("frexpnode",1,0,"Frexp");
+     qmlRegisterType<FloorNode>("floornode",1,0,"Floor");
+     qmlRegisterType<CeilNode>("ceilnode",1,0,"Ciel");
+     qmlRegisterType<FactorialNode>("factorialnode",1,0,"Factorial");
 
 
     QQmlApplicationEngine engine;
