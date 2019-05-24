@@ -8,6 +8,8 @@
 #include<subtract.h>
 #include <multiplynode.h>
 #include<cursor.h>
+#include<dividenode.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +24,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Var1D>("var1d",1,0,"Var1D");
     qmlRegisterType<Subtract>("subtractnode",1,0,"Subtract");
     qmlRegisterType<Multiply>("multiplynode",1,0,"Multiply");
+    qmlRegisterType<Divide>("dividenode",1,0,"Divide");
     qmlRegisterType<Cursor>("cursor",1,0,"Cursor");
 
 

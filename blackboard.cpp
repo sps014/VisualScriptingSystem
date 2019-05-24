@@ -219,7 +219,7 @@ void BlackBoard::MoveNodes(QPoint q)
     QObjectList allc=cur->children();
     for(int i=0;i<allc.length();i++)
     {
-        QQuickItem* c=dynamic_cast<QQuickItem*>(allc[i]);
+        NodeCore* c=dynamic_cast<NodeCore*>(allc[i]);
         if(c!=nullptr)
         {
              c->setPosition(c->position()+q);

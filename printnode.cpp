@@ -13,7 +13,7 @@ PrintNode::PrintNode()
     Port p;
     p.Parent=this;
     p.Position=QPoint(20,70);
-    p.PortColor=QColor(7,138,123);
+    p.PortColor=QColor(Qt::yellow);
     this->inputPort.push_back(p);
 
 }

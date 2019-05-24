@@ -11,6 +11,8 @@ import multiplynode 1.0
 import noderesults 1.0
 import var1d 1.0
 import cursor 1.0
+import dividenode 1.0
+
 Window {
     id:win
     visible: true
@@ -63,58 +65,95 @@ Window {
             Menu
             {
                     id: contextMenu
-                    MenuItem
+                    cascade: true
+                    Menu
                     {
-                        text: "Add"
-                        onClicked:
+                        title: "Input"
+
+                        MenuItem
                         {
-                            var newObject = Qt.createQmlObject('import addnode 1.0;
-                                Add {x:'+curs.getCursor(win.x,win.y).x+'
-                                     y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            text: "1D Var"
+                            onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import var1d 1.0;
+                                    Var1D {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
+                        }
+
+                    }
+                    Menu
+                    {
+                        title: "Math"
+
+                        MenuItem
+                        {
+                            text: "Add"
+                            onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import addnode 1.0;
+                                    Add {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
+                        }
+
+                        MenuItem
+                        {
+                            text: "Subtract"
+                            onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import subtractnode 1.0;
+                                    Subtract {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
+                        }
+
+                        MenuItem
+                        {
+                            text: "Multiply"
+                            onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import multiplynode 1.0;
+                                    Multiply {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
+                        }
+                        MenuItem
+                        {
+                            text: "Divide"
+                            onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import dividenode 1.0;
+                                    Divide {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
+                        }
 
 
+                    }
+
+
+                    Menu
+                    {
+                        title: "Output"
+
+                        MenuItem
+                        {
+                           text:"Print"
+                           onClicked:
+                            {
+                                var newObject = Qt.createQmlObject('import printnode 1.0;
+                                    Print {x:'+curs.getCursor(win.x,win.y).x+'
+                                         y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                            }
                         }
                     }
-                    MenuItem {
-                        text: "Subtract"
-                        onClicked:
-                        {
-                            var newObject = Qt.createQmlObject('import subtractnode 1.0;
-                                Subtract {x:'+curs.getCursor(win.x,win.y).x+'
-                                     y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
 
 
-                        }
-                    }
-                    MenuItem { text: "Multiply"
-                        onClicked:
-                        {
-                            var newObject = Qt.createQmlObject('import multiplynode 1.0;
-                                Multiply {x:'+curs.getCursor(win.x,win.y).x+'
-                                     y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
 
 
-                        }}
-                    MenuItem { text: "Print"
-                        onClicked:
-                        {
-                            var newObject = Qt.createQmlObject('import printnode 1.0;
-                                Print {x:'+curs.getCursor(win.x,win.y).x+'
-                                     y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
 
 
-                        }}
-
-                    MenuItem { text: "1D Var"
-                        onClicked:
-                        {
-                            var newObject = Qt.createQmlObject('import var1d 1.0;
-                                Var1D {x:'+curs.getCursor(win.x,win.y).x+'
-                                     y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
-
-
-                        }
-                    }
 
                 }
 
