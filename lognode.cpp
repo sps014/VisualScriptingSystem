@@ -1,14 +1,15 @@
-#include "dividenode.h"
+#include "lognode.h"
 
-Divide::Divide()
+LogNode::LogNode()
 {
-    this->setTitle("Divide");
+
+    this->setTitle("Log");
     this->setHeight(180);
     this->setWidth(150);
-    this->setPanelColor(QColor(142,68,173));
-    this->setPanelGradColor(QColor(86, 101, 115));
+    this->setPanelColor(QColor(66,134,244));
+    this->setPanelGradColor(QColor(255,224,0));
 
-    this->functionName="divide";
+    this->functionName="log";
 
     Port p1;
     p1.Parent=this;
@@ -34,14 +35,13 @@ Divide::Divide()
     this->outputPort.push_back(p3);
 
     Label l1;
-    l1.Text="A";
+    l1.Text="Value";
     l1.Pos=QPoint(40,90);
 
     Label l2;
-    l2.Text="B";
+    l2.Text="Base";
     l2.Pos=QPoint(40,140);
 
     this->labelList.push_back(l1);
     this->labelList.push_back(l2);
-
 }

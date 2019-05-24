@@ -6,20 +6,20 @@ ModuloNode::ModuloNode()
     this->setTitle("Modulo");
     this->setHeight(180);
     this->setWidth(150);
-    this->setPanelColor(QColor(142,68,173));
-    this->setPanelGradColor(QColor(86, 101, 115));
+    this->setPanelColor(QColor(240,152,25));
+    this->setPanelGradColor(QColor(237, 222, 93));
 
     this->functionName="modulo";
 
     Port p1;
     p1.Parent=this;
     p1.Position=QPoint(20,80);
-    p1.PortColor=QColor(7,138,123);
+    p1.PortColor=panelColor();
 
     Port p2;
     p2.Parent=this;
     p2.Position=QPoint(20,130);
-    p2.PortColor=QColor(7,138,123);
+    p2.PortColor=panelColor();
 
 
     this->inputPort.push_back(p1);
@@ -29,7 +29,7 @@ ModuloNode::ModuloNode()
 
     p3.Parent=this;
     p3.Position=QPoint(125,105);
-    p3.PortColor=QColor(7,138,123);
+    p3.PortColor=panelGradColor();
     p3.Type=PortType::OutPut;
 
     this->outputPort.push_back(p3);

@@ -636,6 +636,22 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
             currentNumberBox->Text.insert(currentNumberBox->CursorPos,static_cast<QChar>(e->key()));
             currentNumberBox->CursorPos++;
         }
+        if(e->key()==Qt::Key::Key_Plus)
+        {
+            currentNumberBox->Text.insert(currentNumberBox->CursorPos,'+');
+            currentNumberBox->CursorPos++;
+        }
+        if(e->key()==Qt::Key::Key_Minus)
+        {
+            currentNumberBox->Text.insert(currentNumberBox->CursorPos,'-');
+            currentNumberBox->CursorPos++;
+        }
+        if(e->key()==Qt::Key::Key_E)
+        {
+            currentNumberBox->Text.insert(currentNumberBox->CursorPos,'E');
+            currentNumberBox->CursorPos++;
+        }
+
         if( e->modifiers().testFlag(Qt::ControlModifier))
         {
             if(e->key()==Qt::Key::Key_C)
@@ -728,7 +744,16 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
     }
     if(e->key()==Qt::Key::Key_Delete)
     {
+        for (int i=0;i<outputPort.length();i++)
+        {
+         Port *p=outputPort[i].InputPort;
+         if(p!=nullptr)
+         {
+             p->Target=nullptr;
+         }
+        }
         this->deleteLater();
+        Parent()->update();
     }
 }
 

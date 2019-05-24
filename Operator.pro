@@ -27,7 +27,26 @@ SOURCES += \
     multiplynode.cpp \
     cursor.cpp \
     dividenode.cpp \
-    modulonode.cpp
+    modulonode.cpp \
+    sinnode.cpp \
+    cosnode.cpp \
+    tannode.cpp \
+    asinnode.cpp \
+    acosnode.cpp \
+    atannode.cpp \
+    atan2node.cpp \
+    hypotnode.cpp \
+    lognode.cpp \
+    pownode.cpp \
+    expnode.cpp \
+    sqrtnode.cpp \
+    asinhnode.cpp \
+    acoshnode.cpp \
+    atanhnode.cpp \
+    coshnode.cpp \
+    sinhnode.cpp \
+    tanhnode.cpp \
+    pinode.cpp
 
 RESOURCES += qml.qrc
 
@@ -59,4 +78,23 @@ HEADERS += \
     multiplynode.h \
     cursor.h \
     dividenode.h \
-    modulonode.h
+    modulonode.h \
+    sinnode.h \
+    cosnode.h \
+    tannode.h \
+    asinnode.h \
+    acosnode.h \
+    atannode.h \
+    atan2node.h \
+    hypotnode.h \
+    lognode.h \
+    pownode.h \
+    expnode.h \
+    sqrtnode.h \
+    asinhnode.h \
+    acoshnode.h \
+    atanhnode.h \
+    coshnode.h \
+    sinhnode.h \
+    tanhnode.h \
+    pinode.h
