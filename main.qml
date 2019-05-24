@@ -356,6 +356,30 @@ Window {
                                 }
                             }
                         }
+                        Menu
+                        {
+                            title: "Angular Conversion"
+                            MenuItem
+                            {
+                                text: "Degrees"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import degreesnode 1.0;
+                                        Degrees {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "Radians"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import radiansnode 1.0;
+                                        Radians {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                        }
                     }
 
 

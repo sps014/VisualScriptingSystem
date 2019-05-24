@@ -47,7 +47,9 @@ SOURCES += \
     sinhnode.cpp \
     tanhnode.cpp \
     pinode.cpp \
-    econstnode.cpp
+    econstnode.cpp \
+    degreesnode.cpp \
+    radiansnode.cpp
 
 RESOURCES += qml.qrc
 
@@ -99,4 +101,6 @@ HEADERS += \
     sinhnode.h \
     tanhnode.h \
     pinode.h \
-    econstnode.h
+    econstnode.h \
+    degreesnode.h \
+    radiansnode.h

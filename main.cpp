@@ -36,6 +36,9 @@
 #include"pinode.h"
 #include"econstnode.h"
 
+#include"degreesnode.h"
+#include"radiansnode.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -83,6 +86,9 @@ int main(int argc, char *argv[])
 
      qmlRegisterType<PiNode>("pinode",1,0,"PI");
      qmlRegisterType<EconstNode>("econstnode",1,0,"E");
+
+     qmlRegisterType<DegreesNode>("degreesnode",1,0,"Degrees");
+     qmlRegisterType<RadiansNode>("radiansnode",1,0,"Radians");
 
 
     QQmlApplicationEngine engine;
