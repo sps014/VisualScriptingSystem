@@ -39,6 +39,11 @@
 #include"degreesnode.h"
 #include"radiansnode.h"
 
+#include"lgammanode.h"
+#include"gammanode.h"
+#include"erfcnode.h"
+#include"erfnode.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -89,6 +94,11 @@ int main(int argc, char *argv[])
 
      qmlRegisterType<DegreesNode>("degreesnode",1,0,"Degrees");
      qmlRegisterType<RadiansNode>("radiansnode",1,0,"Radians");
+
+     qmlRegisterType<ErfNode>("erfnode",1,0,"Erf");
+     qmlRegisterType<ErfcNode>("erfcnode",1,0,"Ergc");
+     qmlRegisterType<GammaNode>("gammanode",1,0,"Gamma");
+     qmlRegisterType<ErfcNode>("lgammanode",1,0,"LGamma");
 
 
     QQmlApplicationEngine engine;

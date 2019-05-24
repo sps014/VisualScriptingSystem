@@ -49,7 +49,11 @@ SOURCES += \
     pinode.cpp \
     econstnode.cpp \
     degreesnode.cpp \
-    radiansnode.cpp
+    radiansnode.cpp \
+    erfnode.cpp \
+    erfcnode.cpp \
+    gammanode.cpp \
+    lgammanode.cpp
 
 RESOURCES += qml.qrc
 
@@ -103,4 +107,8 @@ HEADERS += \
     pinode.h \
     econstnode.h \
     degreesnode.h \
-    radiansnode.h
+    radiansnode.h \
+    erfnode.h \
+    erfcnode.h \
+    gammanode.h \
+    lgammanode.h

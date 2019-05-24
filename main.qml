@@ -380,6 +380,50 @@ Window {
                                 }
                             }
                         }
+                        Menu
+                        {
+                            title: "Special"
+                            MenuItem
+                            {
+                                text: "Erf"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import erfnode 1.0;
+                                        Erf {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "Erfc"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import erfcnode 1.0;
+                                        Erfc {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "Gamma"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import gammanode 1.0;
+                                        Gamma {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                            MenuItem
+                            {
+                                text: "LGamma"
+                                onClicked:
+                                {
+                                    var newObject = Qt.createQmlObject('import lgammanode 1.0;
+                                        LGamma {x:'+curs.getCursor(win.x,win.y).x+'
+                                             y:'+curs.getCursor(win.x,win.y).y+' }', board, "board");
+                                }
+                            }
+                        }
                     }
 
 
