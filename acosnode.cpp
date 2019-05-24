@@ -8,7 +8,7 @@ ACosNode::ACosNode()
     this->setPanelColor(QColor(229,93,135));
     this->setPanelGradColor(QColor(95,195,228));
 
-    this->functionName="acos";
+    this->functionName="math.acos";
 
     Port p1;
     p1.Parent=this;

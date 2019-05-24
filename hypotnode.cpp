@@ -8,7 +8,7 @@ HypotNode::HypotNode()
     this->setPanelColor(QColor(121,159,12));
     this->setPanelGradColor(QColor(255,224,0));
 
-    this->functionName="hypot";
+    this->functionName="math.hypot";
 
     Port p1;
     p1.Parent=this;

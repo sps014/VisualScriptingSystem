@@ -8,7 +8,7 @@ ASinHNode::ASinHNode()
     this->setPanelColor(QColor(195,20,50));
     this->setPanelGradColor(QColor(36,11,54));
 
-    this->functionName="asinh";
+    this->functionName="math.asinh";
 
     Port p1;
     p1.Parent=this;

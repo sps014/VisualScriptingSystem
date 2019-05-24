@@ -8,7 +8,7 @@ ATan::ATan()
     this->setPanelColor(QColor(229,93,135));
     this->setPanelGradColor(QColor(95,195,228));
 
-    this->functionName="atan";
+    this->functionName="math.atan";
 
     Port p1;
     p1.Parent=this;

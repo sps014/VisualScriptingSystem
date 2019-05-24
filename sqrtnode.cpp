@@ -8,7 +8,7 @@ SqrtNode::SqrtNode()
     this->setPanelColor(QColor(221,38,118));
     this->setPanelGradColor(QColor(255,81,47));
 
-    this->functionName="sqrt";
+    this->functionName="math.sqrt";
 
     Port p1;
     p1.Parent=this;

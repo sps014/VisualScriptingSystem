@@ -8,7 +8,7 @@ cosnode::cosnode()
     this->setPanelColor(QColor(221,38,118));
     this->setPanelGradColor(QColor(255,81,47));
 
-    this->functionName="cos";
+    this->functionName="math.cos";
 
     Port p1;
     p1.Parent=this;

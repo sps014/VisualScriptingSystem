@@ -8,7 +8,7 @@ asinnode::asinnode()
     this->setPanelColor(QColor(229,93,135));
     this->setPanelGradColor(QColor(95,195,228));
 
-    this->functionName="asin";
+    this->functionName="math.asin";
 
     Port p1;
     p1.Parent=this;

@@ -8,7 +8,7 @@ tannode::tannode()
     this->setPanelColor(QColor(221,38,118));
     this->setPanelGradColor(QColor(255,81,47));
 
-    this->functionName="tan";
+    this->functionName="math.tan";
 
     Port p1;
     p1.Parent=this;

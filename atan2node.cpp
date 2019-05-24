@@ -8,7 +8,7 @@ ATan2Node::ATan2Node()
     this->setPanelColor(QColor(121,159,12));
     this->setPanelGradColor(QColor(255,224,0));
 
-    this->functionName="atan2";
+    this->functionName="math.atan2";
 
     Port p1;
     p1.Parent=this;

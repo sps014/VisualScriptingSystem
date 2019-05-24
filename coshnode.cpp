@@ -8,7 +8,7 @@ CosHNode::CosHNode()
     this->setPanelColor(QColor(195,20,50));
     this->setPanelGradColor(QColor(36,11,54));
 
-    this->functionName="cosh";
+    this->functionName="math.cosh";
 
     Port p1;
     p1.Parent=this;

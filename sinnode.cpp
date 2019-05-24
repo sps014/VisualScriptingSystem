@@ -8,7 +8,7 @@ SinNode::SinNode()
     this->setPanelColor(QColor(221,38,118));
     this->setPanelGradColor(QColor(255,81,47));
 
-    this->functionName="sin";
+    this->functionName="math.sin";
 
     Port p1;
     p1.Parent=this;

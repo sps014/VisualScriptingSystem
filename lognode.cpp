@@ -9,7 +9,7 @@ LogNode::LogNode()
     this->setPanelColor(QColor(66,134,244));
     this->setPanelGradColor(QColor(255,224,0));
 
-    this->functionName="log";
+    this->functionName="math.log";
 
     Port p1;
     p1.Parent=this;
