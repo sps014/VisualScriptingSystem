@@ -34,7 +34,51 @@ Window {
             id: toolButton
             x: 0
             y: 0
-            text: qsTr("FILE")
+            text: qsTr("RUN")
+            onClicked: runMenu.popup()
+            Menu{
+                id:runMenu
+                title: "Transpile"
+                MenuItem
+                {
+                    text:"Python"
+                    onClicked:
+                    {
+                        var msg=calc.getResult(board)
+                        if(msg.indexOf("ERR")>=0)
+                        {
+                            outputText.color="red"
+                            msg=msg.replace("ERR","")
+                        }
+                        else
+                            outputText.color="white"
+                        outputText.text=msg
+                    }
+                }
+            }
+        }
+
+        Button
+        {
+            x: 514
+            y: -1
+            width: 118
+            height: 50
+            text: "Result"
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            onClicked:
+            {
+                var msg=calc.getResult(board)
+                if(msg.indexOf("ERR")>=0)
+                {
+                    outputText.color="red"
+                    msg=msg.replace("ERR","")
+                }
+                else
+                    outputText.color="white"
+                outputText.text=msg
+            }
         }
     }
 
@@ -555,25 +599,6 @@ Window {
 
             }
 
-        }
-
-        Button
-        {
-            x: 278
-            y: 0
-            width: 135
-            height: 70
-            text: "Result"
-            onClicked:
-            {
-                var msg=calc.getResult(board)
-                if(msg.indexOf("ERR")>=0)
-                {
-                    outputText.color="red"
-                    msg=msg.replace("ERR","")
-                }
-                outputText.text=msg
-            }
         }
     }
 

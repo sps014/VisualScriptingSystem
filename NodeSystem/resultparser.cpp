@@ -4,14 +4,22 @@ ResultParser::ResultParser(QObject *parent) : QObject(parent)
 {
 
 }
+
+//Convert to python and Orders Output from Standard Console for executed python code converted
+
 QString ResultParser::OrderResult(QString s)
 {
-    QString path="C:\\Users\\shive\\OneDrive\\Desktop\\m.py";
-    QFile file(path);
+    QString path="C:\\Users\\shive\\OneDrive\\Desktop\\m.py"; //output .py path
+
+    QFile file(path); //create file stream
+
+    //open file in write text mode
     if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-
+        //gets file stream
         QTextStream stream(&file);
+
+        //Write your Functions Custom definition or import staement here
 
         QString import1="import math\n";
         QString addFunc="def add(a,b):\n return a+b\n";
@@ -20,7 +28,7 @@ QString ResultParser::OrderResult(QString s)
         QString divFunc="def divide(a,b):\n return a/b\n";
         QString moduFunc="def modulo(a,b):\n return a%b\n";
 
-
+        //If your function node is used write your definition to file
 
         if(s.indexOf("math")>=0)
         stream<<import1<<endl;
@@ -37,21 +45,29 @@ QString ResultParser::OrderResult(QString s)
 
 
 
-
         stream<<"\n"<<s<<endl;
     }
+
+    //close file
     file.close();
 
+    //Create Process
     QProcess q;
+    //Supply python file
     q.start("python "+path);
+    //wait for it to finish
     q.waitForFinished();
+    //Read output
     QString output(q.readAllStandardOutput());
+    //if error ie. output is not there
     if(output.size()<=0)
     {
+        //send ERR to specify its error
         output="ERR";
+        //read error console
         output+=q.readAllStandardError();
     }
-    output.replace("\r\n","");
+    //send output or error
     return output;
 
 }
