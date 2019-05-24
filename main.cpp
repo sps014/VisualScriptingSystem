@@ -6,15 +6,15 @@
 #include"NodeSystem/cursor.h"
 
 
-#include"NodeSystem/Derived/math/printnode.h"
-#include"NodeSystem/Derived/math/addnode.h"
+#include"NodeSystem/Derived/printnode.h"
+#include"NodeSystem/Derived/addnode.h"
 
-#include"NodeSystem/Derived/math/var1d.h"
-#include"NodeSystem/Derived/math/subtract.h"
-#include"NodeSystem/Derived/math/multiplynode.h"
-#include"NodeSystem/Derived/math/dividenode.h"
+#include"NodeSystem/Derived/var1d.h"
+#include"NodeSystem/Derived/subtract.h"
+#include"NodeSystem/Derived/multiplynode.h"
+#include"NodeSystem/Derived/dividenode.h"
 
-#include"NodeSystem/Derived/math/modulonode.h"
+#include"NodeSystem/Derived/modulonode.h"
 
 #include"NodeSystem/Derived/math/sinnode.h"
 #include"NodeSystem/Derived/math/cosnode.h"
