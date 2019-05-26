@@ -57,7 +57,6 @@ A python transpiled (.py) file generated as output of Program.
 
 # Future Plans
 ######  Code Refactoring,Commenting and Code Cleanup
-###### Transplier other major languages such as c++,c#.
 ###### Reflections for more Nodes.
 ###### More UI Controls
 ###### Serialization And Deserialization of Nodes
