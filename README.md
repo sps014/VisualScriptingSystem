@@ -22,6 +22,8 @@ def multiply(a,b):
 print(multiply(add(9.8 ,11.7),subtract(11.7,9.6)))
 
 ```
+### Nodes are arranged in context menu
+![app context menu](https://user-images.githubusercontent.com/45932883/58385328-61c87200-800c-11e9-8737-96bbcefdd2a1.PNG)
 
 ---
 
