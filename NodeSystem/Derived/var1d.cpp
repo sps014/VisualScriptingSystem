@@ -16,12 +16,13 @@ Var1D::Var1D()
     p.PortColor=panelGradColor();
     p.Type=PortType::OutPut;
 
-    NumberBox n;
+    ComboBox n;
     n.Pos=QPoint(10,60);
 
-    this->numberBoxList.push_back(n);
+    this->comboBoxList.push_back(n);
+    //this->numberBoxList.push_back(n);
 
-    p.NumberBoxList.push_back(n);
+    //p.NumberBoxList.push_back(n);
 
     this->outputPort.push_back(p);
 

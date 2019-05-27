@@ -131,6 +131,7 @@ void NodeCore::paint(QPainter *painter)
     DrawLabels(painter);
     DrawCheckBoxes(painter);
     DrawNumberBoxes(painter);
+    DrawComboBoxes(painter);
     DrawTextBoxes(painter);
 }
 void NodeCore::DrawBody(QPainter *painter)
@@ -207,6 +208,14 @@ void NodeCore::DrawTextBoxes(QPainter *e)
     }
 }
 
+void NodeCore::DrawComboBoxes(QPainter *e)
+{
+    for(int i=0;i<comboBoxList.length();i++)
+    {
+        comboBoxList[i].DrawBody(e,currentComboBox);
+    }
+}
+
 bool NodeCore::IsMouseOnHeader(QPoint p)
 {
     if(p.x()>0&&p.x()<=width())
@@ -232,6 +241,7 @@ void NodeCore::mousePressEvent(QMouseEvent *e)
         CheckBoxClickHelper(e->pos());
         NumberBoxClickHelper(e->pos());
         TextBoxClickHelper(e->pos());
+        ComboBoxClickHelper(e->pos());
     }
 }
 
@@ -260,6 +270,7 @@ void NodeCore::focusOutEvent(QFocusEvent *e)
     {
         currentNumberBox=nullptr;
         currentTextBox=nullptr;
+        currentComboBox=nullptr;
         update();
     }
 }
@@ -330,6 +341,22 @@ void NodeCore::CheckBoxClickHelper(QPoint e)
         }
         update();
     }
+}
+
+void NodeCore::ComboBoxClickHelper(QPoint e)
+{
+    ComboBox* c=GetClickedComboBox(e);
+    if(c!=nullptr)
+    {
+        currentComboBox=c;
+    }
+    else
+    {
+        currentComboBox=nullptr;
+
+    }
+    update();
+
 }
 void NodeCore::NumberBoxClickHelper(QPoint e)
 {
@@ -463,6 +490,22 @@ CheckBox* NodeCore::GetClickedCheckBox(QPoint e)
     return p;
 }
 
+ComboBox* NodeCore::GetClickedComboBox(QPoint e)
+{
+    ComboBox* p=nullptr;
+
+    for(int i=0;i<comboBoxList.length();i++)
+    {
+        if(abs(e.x()-comboBoxList[i].Pos.x())<=comboBoxList[i].Width)
+        {
+            if(abs(e.y()-comboBoxList[i].Pos.y())<=comboBoxList[i].Height)
+            {
+                p=&comboBoxList[i];
+            }
+        }
+    }
+    return p;
+}
 NumberBox* NodeCore::GetClickedNumberBox(QPoint e)
 {
     NumberBox* p=nullptr;

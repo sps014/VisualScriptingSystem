@@ -126,4 +126,5 @@ HEADERS += \
     NodeSystem/Derived/math/fabsnode.h \
     NodeSystem/Derived/math/factorialnode.h \
     NodeSystem/Derived/math/floornode.h \
-    NodeSystem/Derived/math/frexpnode.h
+    NodeSystem/Derived/math/frexpnode.h \
+    NodeSystem/comboboxcore.h

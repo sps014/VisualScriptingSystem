@@ -12,6 +12,7 @@
 #include"checkboxcore.h"
 #include"numberboxcore.h"
 #include"textboxcore.h"
+#include"comboboxcore.h"
 
 class NodeCore : public QQuickPaintedItem
 {
@@ -41,6 +42,7 @@ public:
     QList<Port> outputPort;
     QList<Label> labelList;
     QList<CheckBox> checkBoxList;
+    QList<ComboBox> comboBoxList;
     QList<NumberBox> numberBoxList;
     QList<TextBox> textBoxList;
 
@@ -90,6 +92,7 @@ private:
     void DrawPorts(QPainter*);
     void DrawLabels(QPainter*);
     void DrawCheckBoxes(QPainter*);
+    void DrawComboBoxes(QPainter*);
     void DrawNumberBoxes(QPainter*);
     void DrawTextBoxes(QPainter*);
 
@@ -97,6 +100,7 @@ private:
 
     Port* GetClickedPort(QPoint);
     CheckBox* GetClickedCheckBox(QPoint);
+    ComboBox* GetClickedComboBox(QPoint);
     NumberBox* GetClickedNumberBox(QPoint);
     TextBox* GetClickedTextBox(QPoint);
 
@@ -106,11 +110,13 @@ private:
     Port* currentPort;
     NumberBox* currentNumberBox=nullptr;
     TextBox* currentTextBox=nullptr;
+    ComboBox* currentComboBox=nullptr;
 
     void PortClickHelper(QPoint);
     void CheckBoxClickHelper(QPoint);
     void NumberBoxClickHelper(QPoint);
     void TextBoxClickHelper(QPoint);
+    void ComboBoxClickHelper(QPoint);
 
     void PortLineMoveHelper(QPoint);
     void ReleasePortTargeter(QPoint);
