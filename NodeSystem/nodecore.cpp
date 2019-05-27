@@ -181,9 +181,7 @@ void NodeCore::DrawLabels(QPainter *e)
 {
     for(int i=0;i<labelList.length();i++)
     {
-        e->setPen(labelList[i].Color);
-        e->setFont(labelList[i].Font);
-        e->drawText(labelList[i].Pos,labelList[i].Text);
+      labelList[i].DrawBody(e);
     }
 }
 void NodeCore::DrawCheckBoxes(QPainter *e)

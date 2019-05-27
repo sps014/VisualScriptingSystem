@@ -4,6 +4,8 @@
 #include<QPoint>
 #include<QColor>
 #include<QFont>
+#include<QPainter>
+
 class Label
 {
 public:
@@ -15,6 +17,13 @@ public:
     QString getValue() 
     {
         return Text;
+    }
+
+    void DrawBody(QPainter *e)
+    {
+        e->setPen(Color);
+        e->setFont(Font);
+        e->drawText(Pos,Text);
     }
 };
 
