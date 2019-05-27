@@ -10,6 +10,7 @@
 #include<QApplication>
 #include<QClipboard>
 #include<QKeyEvent>
+#include<QPainter>
 
 class NumberBox
 {
@@ -35,6 +36,36 @@ public:
     }
 
     int MaxCharacters=8;
+
+    void DrawBody(QPainter *e,NumberBox *currentNumberBox)
+    {
+        e->setPen(BorderColor);
+        e->drawRect(Pos.x(),Pos.y(),Width,Height);
+        QColor bcol=currentNumberBox==nullptr?BackgroundColor:HighlightColor;
+        e->fillRect(Pos.x(),Pos.y(),Width,Height,bcol);
+
+        //Draw Text
+        QFontMetrics f(Font);
+        f.width(Text);
+        int y=f.height();
+        e->setPen(ForeGroundColor);
+        e->setFont(Font);
+        QString text=Text;
+
+        //Draw Cursor
+        if(currentNumberBox!=nullptr)
+            text.insert(CursorPos,'|');
+
+        //Draw .. for extended Line
+        if(Text.length()>MaxCharacters)
+        {
+            CursorPos=Text.length();
+            text.resize(MaxCharacters-3);
+            text+="..";
+        }
+        QPoint p=Pos+QPoint(5,2*y/3);
+        e->drawText(p,text);
+    }
 
     void KeyPress(QKeyEvent *e)
     {

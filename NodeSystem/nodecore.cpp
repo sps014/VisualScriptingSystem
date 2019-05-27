@@ -188,24 +188,7 @@ void NodeCore::DrawCheckBoxes(QPainter *e)
 {
     for(int i=0;i<checkBoxList.length();i++)
     {
-        CheckBox *c=&checkBoxList[i];
-        e->setPen(c->BorderColor);
-        e->drawRect(c->Pos.x(),c->Pos.y(),c->Width,c->Height);
-        if(c->State==CheckBoxState::Off)
-        {
-            e->fillRect(c->Pos.x(),c->Pos.y(),c->Width,c->Height,c->BackColor);
-        }
-        else
-        {
-            e->fillRect(c->Pos.x(),c->Pos.y(),c->Width,c->Height,c->FillColor);
-            e->setPen(QPen(c->TickColor,2));
-            QPoint p1=c->Pos+QPoint(c->Width/6,1*c->Height/2);
-            QPoint p2=c->Pos+QPoint(2*c->Width/5,7*c->Height/9);
-            QPoint p3=c->Pos+QPoint(4*c->Width/5,1*c->Height/5);
-
-            e->drawLine(p1,p2);
-            e->drawLine(p2,p3);
-        }
+        checkBoxList[i].DrawBody(e);
     }
 }
 
@@ -213,33 +196,7 @@ void NodeCore::DrawNumberBoxes(QPainter *e)
 {
     for(int i=0;i<numberBoxList.length();i++)
     {
-        NumberBox *n=&numberBoxList[i];
-        e->setPen(n->BorderColor);
-        e->drawRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height);
-        QColor bcol=currentNumberBox==nullptr?n->BackgroundColor:n->HighlightColor;
-        e->fillRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height,bcol);
-
-        //Draw Text
-        QFontMetrics f(n->Font);
-        f.width(n->Text);
-        int y=f.height();
-        e->setPen(n->ForeGroundColor);
-        e->setFont(n->Font);
-        QString text=n->Text;
-
-        //Draw Cursor
-        if(currentNumberBox!=nullptr)
-            text.insert(n->CursorPos,'|');
-
-        //Draw .. for extended Line
-        if(n->Text.length()>n->MaxCharacters)
-        {
-            n->CursorPos=n->Text.length();
-            text.resize(n->MaxCharacters-3);
-            text+="..";
-        }
-        QPoint p=n->Pos+QPoint(5,2*y/3);
-        e->drawText(p,text);
+        numberBoxList[i].DrawBody(e,currentNumberBox);
     }
 }
 void NodeCore::DrawTextBoxes(QPainter *e)

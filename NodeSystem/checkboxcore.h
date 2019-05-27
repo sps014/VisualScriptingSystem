@@ -26,6 +26,27 @@ QString getValue()
 {
     return State==1?"true":"false";
 }
+void DrawBody(QPainter *e)
+{
+    e->setPen(BorderColor);
+    e->drawRect(Pos.x(),Pos.y(),Width,Height);
+
+    if(State==CheckBoxState::Off)
+    {
+        e->fillRect(Pos.x(),Pos.y(),Width,Height,BackColor);
+    }
+    else
+    {
+        e->fillRect(Pos.x(),Pos.y(),Width,Height,FillColor);
+        e->setPen(QPen(TickColor,2));
+        QPoint p1=Pos+QPoint(Width/6,1*Height/2);
+        QPoint p2=Pos+QPoint(2*Width/5,7*Height/9);
+        QPoint p3=Pos+QPoint(4*Width/5,1*Height/5);
+
+        e->drawLine(p1,p2);
+        e->drawLine(p2,p3);
+    }
+}
 };
 
 #endif // CHECKBOXCORE_H
