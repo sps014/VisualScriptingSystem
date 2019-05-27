@@ -203,33 +203,7 @@ void NodeCore::DrawTextBoxes(QPainter *e)
 {
     for(int i=0;i<textBoxList.length();i++)
     {
-        TextBox *n=&textBoxList[i];
-        e->setPen(n->BorderColor);
-        e->drawRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height);
-        QColor bcol=currentTextBox==nullptr?n->BackgroundColor:n->HighlightColor;
-        e->fillRect(n->Pos.x(),n->Pos.y(),n->Width,n->Height,bcol);
-
-        //Draw Text
-        QFontMetrics f(n->Font);
-        f.width(n->Text);
-        int y=f.height();
-        e->setPen(n->ForeGroundColor);
-        e->setFont(n->Font);
-        QString text=n->Text;
-
-        //Draw Cursor
-        if(currentTextBox!=nullptr)
-            text.insert(n->CursorPos,'|');
-
-        //Draw .. for extended Line
-        if(n->Text.length()>n->MaxCharacters)
-        {
-            n->CursorPos=n->Text.length();
-            text.resize(n->MaxCharacters-3);
-            text+="..";
-        }
-        QPoint p=n->Pos+QPoint(5,2*y/3);
-        e->drawText(p,text);
+        textBoxList[i].DrawBody(e,currentTextBox);
     }
 }
 
