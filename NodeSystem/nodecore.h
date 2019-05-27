@@ -101,7 +101,6 @@ private:
     TextBox* GetClickedTextBox(QPoint);
 
     QPoint ConvertQPoint(QPointF);
-    Port* GetPortNearestAtPosition(QPoint);
     void BindPort(Port*,Port*);
 
     Port* currentPort;

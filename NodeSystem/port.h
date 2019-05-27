@@ -30,6 +30,8 @@ public:
     QList<NumberBox> NumberBoxList;
     QList<TextBox> TextBoxList;
     QList<CheckBox> CheckBoxList;
+
+    Port* GetPortNearestAtPosition(QPoint,QObject*,QQuickItem*);
 };
 
 #endif // PORT_H

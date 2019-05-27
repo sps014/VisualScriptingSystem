@@ -379,7 +379,8 @@ void NodeCore::ReleasePortTargeter(QPoint e)
     if(inputPortClicked)
     {
         inputPortClicked=false;
-        Port *p=GetPortNearestAtPosition(e+ConvertQPoint(position()));
+        Port *p=nullptr;
+        p=p->GetPortNearestAtPosition(e+ConvertQPoint(position()),parent(),this);
         if(p!=nullptr)
         {
             if(p->Type==PortType::OutPut)
@@ -393,7 +394,8 @@ void NodeCore::ReleasePortTargeter(QPoint e)
     if(outPutPortClicked)
     {
         outPutPortClicked=false;
-        Port *p=GetPortNearestAtPosition(e+ConvertQPoint(position()));
+        Port *p=nullptr;
+        p=p->GetPortNearestAtPosition(e+ConvertQPoint(position()),parent(),this);
         if(p!=nullptr)
         {
             if(p->Type==PortType::Input)
@@ -412,39 +414,6 @@ QPoint NodeCore::ConvertQPoint(QPointF q)
     return QPoint(static_cast<int>(q.x()),static_cast<int>(q.y()));
 }
 
-Port* NodeCore::GetPortNearestAtPosition(QPoint e)
-{
-    Port *p=nullptr;
-    QObjectList children=parent()->children();
-    for(int i=0;i<children.length();i++)
-    {
-        NodeCore* n=dynamic_cast<NodeCore*>(children[i]);
-        if(n!=this&&n!=nullptr)
-        {
-            for(int j=0;j<n->inputPort.length();j++)
-            {
-                if(abs(e.x()-n->inputPort[j].GetWorldPosition().x())<=n->inputPort[j].Radius)
-                {
-                    if(abs(e.y()-n->inputPort[j].GetWorldPosition().y())<=n->inputPort[j].Radius)
-                    {
-                        p=&n->inputPort[j];
-                    }
-                }
-            }
-            for(int j=0;j<n->outputPort.length();j++)
-            {
-                if(abs(e.x()-n->outputPort[j].GetWorldPosition().x())<=n->outputPort[j].Radius)
-                {
-                    if(abs(e.y()-n->outputPort[j].GetWorldPosition().y())<=n->outputPort[j].Radius)
-                    {
-                        p=&n->outputPort[j];
-                    }
-                }
-            }
-        }
-    }
-    return p;
-}
 
 void NodeCore::BindPort(Port* p1, Port* p2)
 {

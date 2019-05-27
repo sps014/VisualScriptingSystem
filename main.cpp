@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 
      qmlRegisterType<FrexpNode>("frexpnode",1,0,"Frexp");
      qmlRegisterType<FloorNode>("floornode",1,0,"Floor");
-     qmlRegisterType<CeilNode>("ceilnode",1,0,"Ciel");
+     qmlRegisterType<CeilNode>("ceilnode",1,0,"Ceil");
      qmlRegisterType<FactorialNode>("factorialnode",1,0,"Factorial");
 
 
