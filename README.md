@@ -1,5 +1,5 @@
 # Operator 
-## A expression evalator and multi language transpiler.
+## A expression evalator and python transpiler.
 
 A  Cross Platform Node Based Editor developed in QT C++.
 A builtin parser and python transplier is also written.
