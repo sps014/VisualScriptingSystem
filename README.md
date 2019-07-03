@@ -38,7 +38,7 @@ The UI consist of 3 parts:
 #### NodeCore 
   ->base class of all operational Node entity , contains various properties and it store values and  connections.
 ##### Node UI Components 
-     -> contain rewritten Label,NumberBox,TextBox,CheckBox , Port Connections etc.
+     -> contain rewritten Label,NumberBox,TextBox,CheckBox ,Combobox, Port Connections etc.
    
 ---
 ## Caution
