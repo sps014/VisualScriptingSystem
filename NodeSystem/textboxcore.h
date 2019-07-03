@@ -9,6 +9,7 @@
 #include<QClipboard>
 #include<QKeyEvent>
 #include<QPainter>
+#include<cctype>
 
 class TextBox
 {
@@ -103,14 +104,14 @@ public:
                 CursorPos++;
             }
         }
-        else if(std::isprint(e->key()))
+        else if(isprint(e->key()))
         {
             if(e->modifiers().testFlag(Qt::ShiftModifier))
             {
-                Text.insert(CursorPos,std::toupper(static_cast<char>(e->key())));
+                Text.insert(CursorPos,toupper(static_cast<char>(e->key())));
             }
             else
-                Text.insert(CursorPos,std::tolower(static_cast<char>(e->key())));
+                Text.insert(CursorPos,tolower(static_cast<char>(e->key())));
             CursorPos++;
         }
         else if( e->modifiers().testFlag(Qt::ControlModifier))

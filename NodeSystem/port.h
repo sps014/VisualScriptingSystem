@@ -6,6 +6,7 @@
 #include"numberboxcore.h"
 #include"textboxcore.h"
 #include"checkboxcore.h"
+#include"comboboxcore.h"
 
 enum PortType
 {
@@ -30,6 +31,7 @@ public:
     QList<NumberBox> NumberBoxList;
     QList<TextBox> TextBoxList;
     QList<CheckBox> CheckBoxList;
+	QList<ComboBox> ComboBoxList;
 
     Port* GetPortNearestAtPosition(QPoint,QObject*,QQuickItem*);
 };

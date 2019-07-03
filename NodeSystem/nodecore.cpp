@@ -551,6 +551,11 @@ void NodeCore::keyPressEvent(QKeyEvent *e)
         currentTextBox->KeyPress(e);
         update();
     }
+	if (currentComboBox != nullptr)
+	{
+		currentComboBox->KeyPress(e,this);
+		update();
+	}
     if(e->key()==Qt::Key::Key_Delete)
     {
         for (int i=0;i<outputPort.length();i++)
@@ -580,6 +585,15 @@ QString NodeCore::ResultString()
                    Result+=numberBoxList[l].Text+"";
            }
        }
+	   for (int k = 0; k < outputPort[j].ComboBoxList.length(); k++)
+	   {
+		   ComboBox nb = outputPort[j].ComboBoxList[k];
+
+		   for (int l = 0; l < comboBoxList.length(); l++)
+		   {
+			   Result += comboBoxList[l].CurrentString() + "";
+		   }
+	   }
        for(int k=0;k<outputPort[j].TextBoxList.length();k++)
        {
            TextBox nb= outputPort[j].TextBoxList[k];
