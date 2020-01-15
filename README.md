@@ -3,6 +3,12 @@
 
 A  Cross Platform Node Based Editor developed in QT C++.
 A builtin parser and python transplier is also written.
+
+
+## Download Win64 Binaries
+[here](https://github.com/sps014/Operator/releases/download/0.6/Operator.App.-.1.zip)
+
+
 ##### It usage absolutely zero third party libaries.
 
 ![working](https://user-images.githubusercontent.com/45932883/58257493-a515ad00-7d8e-11e9-93a4-959b0749083c.PNG)
@@ -52,7 +58,7 @@ This is very early version things may break or may not work as expected.
 4. #### Message Box Display Output if python is installed and Path is set
 5. Currently output python file is generated at  
 ```
-C:\Users\shive\OneDrive\Desktop\m.py 
+C:\Users\User\Desktop\Desktop\graphRes.py 
 ```
 
  ---  
