@@ -68,7 +68,7 @@ A python transpiled (.py) file generated as output of Program.
 
 ---
 
-## Build
+## QT Build
 ```shell
 windeployqt --qmldir C:\Users\Path\Project\Operator  C:\Users\Path\ReleaseBinary\build-Operator-Desktop_Qt_5_13_0_MinGW_64_bit-Release\release\operator.exe
 ```
