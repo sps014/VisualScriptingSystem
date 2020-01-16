@@ -9,8 +9,11 @@ ResultParser::ResultParser(QObject *parent) : QObject(parent)
 
 QString ResultParser::OrderResult(QString s)
 {
-    QString path="C:\\Users\\shive\\OneDrive\\Desktop\\m.py"; //output .py path
+    QString path =
+            QString("%1/graphRes.py").arg(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
 
+    //qDebug()<<autoexec;
+    //QString path="C:\\Users\\shive\\OneDrive\\Desktop\\m.py"; //output .py path
     QFile file(path); //create file stream
 
     //open file in write text mode
