@@ -1,4 +1,4 @@
-# Operator 
+# Visual Scripting System 
 ## A expression evalator and python code as output.
 
 A  Cross Platform Node Based Editor developed in QT C++.
