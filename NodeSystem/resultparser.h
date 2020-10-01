@@ -9,6 +9,7 @@
 #include<QDebug>
 #include<QFile>
 #include<QProcess>
+#include<QStandardPaths>
 
 class ResultParser : public QObject
 {
