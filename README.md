@@ -1,8 +1,8 @@
 # Visual Scripting System 
-## A expression evalator and python code as output.
+## A expression evalator and python code emitter.
 
 A  Cross Platform Node Based Editor developed in QT C++.
-A builtin parser and transpiles node to python.
+A builtin parser and transpiles node to python code.
 
 
 ## Download Win64 Binaries
@@ -45,11 +45,7 @@ The UI consist of 3 parts:
   ->base class of all operational Node entity , contains various properties and it store values and  connections.
 ##### Node UI Components 
      -> contain rewritten Label,NumberBox,TextBox,CheckBox ,Combobox, Port Connections etc.
-   
----
-## Caution
-This is very early version things may break or may not work as expected.
-
+    
 ---
 ## Usage
 1. Right click on blackboard to bring context menu.
@@ -57,8 +53,6 @@ This is very early version things may break or may not work as expected.
 3. When done Click on Result get button
 4. #### Message Box Display Output if python is installed and Path is set
 5. Currently output python file is generated at  
-```
-C:\Users\User\Desktop\Desktop\graphRes.py 
 ```
 
  ---  
